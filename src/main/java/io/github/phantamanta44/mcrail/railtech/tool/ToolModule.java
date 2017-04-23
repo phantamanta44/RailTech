@@ -13,10 +13,10 @@ public class ToolModule {
         energyTool(Material.DIAMOND_HOE, "tool-ehoe", "Hoe", 250000);
         energyTool(Material.DIAMOND_SWORD, "tool-esword", "Sword", 250000);
         energyTool(Material.DIAMOND_SPADE, "tool-espade", "Shovel", 250000);
-        energyTool(Material.DIAMOND_SPADE, "tool-elighter", "Igniter", 25000);
-        energyTool(Material.DIAMOND_SPADE, "tool-ebow", "Bow", 50000);
-        energyTool(Material.DIAMOND_SPADE, "tool-erod", "Rod", 25000);
-        energyTool(Material.DIAMOND_SPADE, "tool-eshears", "Shears", 50000);
+        energyTool(Material.FLINT_AND_STEEL, "tool-elighter", "Igniter", 25000);
+        energyTool(Material.BOW, "tool-ebow", "Bow", 50000);
+        energyTool(Material.FISHING_ROD, "tool-erod", "Rod", 25000);
+        energyTool(Material.SHEARS, "tool-eshears", "Shears", 50000);
     }
 
     private static void energyTool(Material material, String id, String name, int charge) {
