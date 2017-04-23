@@ -2,7 +2,10 @@ package io.github.phantamanta44.mcrail.railtech.machine;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import io.github.phantamanta44.mcrail.railflux.IEnergyConsumer;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergized;
+import io.github.phantamanta44.mcrail.railtech.util.EnergyUtils;
+import io.github.phantamanta44.mcrail.util.AdapterUtils;
 import io.github.phantamanta44.mcrail.util.JsonUtils;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.Action;
@@ -12,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class TileCharger extends TileEnergized {
 
@@ -54,7 +58,13 @@ public class TileCharger extends TileEnergized {
 
     @Override
     public void tick() {
-
+        if (energy > 0) {
+            EnergyUtils.distribute(Arrays.stream(inv)
+                    .map(i -> AdapterUtils.adapt(IEnergyConsumer.class, i))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList()),
+                    (int)Math.floor(7920 * (float)energy / (float)energyMax) + 80);
+        }
     }
 
     @Override

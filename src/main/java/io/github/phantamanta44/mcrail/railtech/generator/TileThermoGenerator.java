@@ -80,7 +80,7 @@ public class TileThermoGenerator extends TileEnergized {
             }
         }
         if (energy > 0)
-            energy -= EnergyUtils.distribute(this, 80);
+            energy -= EnergyUtils.distributeAdj(pos(), Math.min(energy, 80));
     }
 
     @Override
