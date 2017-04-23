@@ -5,7 +5,7 @@ import io.github.phantamanta44.mcrail.railflux.IEnergized;
 import io.github.phantamanta44.mcrail.sign.SignEntity;
 import org.bukkit.block.Block;
 
-public abstract class TileEnergized extends SignEntity implements IEnergized { // TODO Rate limited variant
+public abstract class TileEnergized extends SignEntity implements IEnergized {
 
     protected int energy, energyMax;
 
