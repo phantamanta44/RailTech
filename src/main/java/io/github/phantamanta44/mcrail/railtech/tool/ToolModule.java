@@ -8,15 +8,15 @@ import org.bukkit.inventory.ItemStack;
 public class ToolModule {
 
     public static void init() {
-        energyTool(Material.DIAMOND_PICKAXE, "ediapick", "Pickaxe", 250000);
-        energyTool(Material.DIAMOND_AXE, "ediaaxe", "Axe", 250000);
-        energyTool(Material.DIAMOND_HOE, "ediahoe", "Hoe", 250000);
-        energyTool(Material.DIAMOND_SWORD, "ediasword", "Sword", 250000);
-        energyTool(Material.DIAMOND_SPADE, "ediaspade", "Shovel", 250000);
-        energyTool(Material.DIAMOND_SPADE, "elighter", "Igniter", 25000);
-        energyTool(Material.DIAMOND_SPADE, "ebow", "Bow", 50000);
-        energyTool(Material.DIAMOND_SPADE, "erod", "Rod", 25000);
-        energyTool(Material.DIAMOND_SPADE, "eshears", "Shears", 50000);
+        energyTool(Material.DIAMOND_PICKAXE, "tool-epick", "Pickaxe", 250000);
+        energyTool(Material.DIAMOND_AXE, "tool-eaxe", "Axe", 250000);
+        energyTool(Material.DIAMOND_HOE, "tool-ehoe", "Hoe", 250000);
+        energyTool(Material.DIAMOND_SWORD, "tool-esword", "Sword", 250000);
+        energyTool(Material.DIAMOND_SPADE, "tool-espade", "Shovel", 250000);
+        energyTool(Material.DIAMOND_SPADE, "tool-elighter", "Igniter", 25000);
+        energyTool(Material.DIAMOND_SPADE, "tool-ebow", "Bow", 50000);
+        energyTool(Material.DIAMOND_SPADE, "tool-erod", "Rod", 25000);
+        energyTool(Material.DIAMOND_SPADE, "tool-eshears", "Shears", 50000);
     }
 
     private static void energyTool(Material material, String id, String name, int charge) {
