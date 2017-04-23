@@ -10,7 +10,7 @@ public class MachineModule {
     public static void init() {
         Rail.signRegistry().register(
                 "railtech:mac-charger",
-                ChatColor.WHITE + "Charging Apparatus",
+                ChatColor.RESET + "Charging Apparatus",
                 TileCharger::new);
         Rail.recipes().register(new RailRecipe()
                 .line(" b ").line("vav").line("rgr")

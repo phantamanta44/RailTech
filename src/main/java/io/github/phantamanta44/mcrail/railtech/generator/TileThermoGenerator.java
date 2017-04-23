@@ -1,6 +1,7 @@
 package io.github.phantamanta44.mcrail.railtech.generator;
 
 import com.google.gson.JsonObject;
+import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergized;
 import io.github.phantamanta44.mcrail.railtech.util.BurnTime;
 import io.github.phantamanta44.mcrail.railtech.util.EnergyUtils;
@@ -55,7 +56,7 @@ public class TileThermoGenerator extends TileEnergized {
 
     @Override
     public void modifyDrops(Collection<ItemStack> drops) {
-        if (fuel != null)
+        if (fuel[0] != null)
             drops.add(fuel[0]);
     }
 
@@ -64,7 +65,8 @@ public class TileThermoGenerator extends TileEnergized {
         if (burnTime > 0) {
             energy = Math.min(energy + 40, energyMax);
             burnTime--;
-            pos().world().playEffect(location().add(0.5, 0.5, 0.5), Effect.MOBSPAWNER_FLAMES, 0);
+            if (Rail.currentTick() % 14 == 0)
+                pos().world().playEffect(location().add(0.5, 0.5, 0.5), Effect.MOBSPAWNER_FLAMES, 0);
         } else {
             if (fuel[0] != null) {
                 int potential = BurnTime.of(fuel[0].getType());
@@ -81,6 +83,8 @@ public class TileThermoGenerator extends TileEnergized {
         }
         if (energy > 0)
             energy -= EnergyUtils.distributeAdj(pos(), Math.min(energy, 80));
+        lines().a(String.format("%d / %d RJ (%.1f%%)", energy, energyMax, 100 * (float)energy / (float)energyMax));
+        lines().b(burnTime > 0 ? String.format("%d tick(s)", burnTime) : "Nothing's burning!");
     }
 
     @Override

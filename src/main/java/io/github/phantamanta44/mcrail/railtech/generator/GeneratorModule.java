@@ -10,7 +10,7 @@ public class GeneratorModule {
     public static void init() {
         Rail.signRegistry().register(
                 "railtech:gen-thermo",
-                ChatColor.WHITE + "Thermoelectric Generator",
+                ChatColor.RESET + "Thermoelectric Generator",
                 TileThermoGenerator::new);
         Rail.recipes().register(new RailRecipe()
                 .line("bbb").line("fpf").line("rir")

@@ -59,12 +59,14 @@ public class TileCharger extends TileEnergized {
     @Override
     public void tick() {
         if (energy > 0) {
-            EnergyUtils.distribute(Arrays.stream(inv)
+            energy -= EnergyUtils.distribute(Arrays.stream(inv)
+                    .filter(Objects::nonNull)
                     .map(i -> AdapterUtils.adapt(IEnergyConsumer.class, i))
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList()),
                     (int)Math.floor(7920 * (float)energy / (float)energyMax) + 80);
         }
+        lines().a(String.format("%d / %d RJ (%.1f%%)", energy, energyMax, 100 * (float)energy / (float)energyMax));
     }
 
     @Override

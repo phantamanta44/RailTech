@@ -28,7 +28,7 @@ public abstract class TileEnergized extends SignEntity implements IEnergized { /
     @Override
     public int offerEnergy(int amount) {
         int toTransfer = Math.min(amount, energyMax - energy);
-        energy += amount;
+        energy += toTransfer;
         return toTransfer;
     }
 

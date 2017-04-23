@@ -18,18 +18,19 @@ public class EnergyUtils {
     }
 
     public static int distribute(Collection<IEnergyConsumer> cons, int amount) {
+        int toDis = amount;
         for (int i = 0; !cons.isEmpty() && i < 3; i++) {
-            int rate = (int)Math.floor((float)amount / (float)cons.size());
+            int rate = (int)Math.floor((float)toDis / (float)cons.size());
             Iterator<IEnergyConsumer> iter = cons.iterator();
             while (iter.hasNext()) {
                 IEnergyConsumer con = iter.next();
                 int transferred = con.offerEnergy(rate);
                 if (transferred < 1)
                     iter.remove();
-                amount -= transferred;
+                toDis -= transferred;
             }
         }
-        return 80 - amount;
+        return amount - toDis;
     }
 
 }

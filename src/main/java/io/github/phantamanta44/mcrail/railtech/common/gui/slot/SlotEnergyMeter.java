@@ -23,12 +23,12 @@ public class SlotEnergyMeter extends GuiSlot {
         int energyMax = source.energyCapacity();
         float percent = (float)energy / (float)energyMax;
         ItemStack stack = new ItemStack(percent < 0.01F
-                ? Material.LEVER
-                : percent < 0.5F ? Material.REDSTONE_TORCH_OFF : Material.REDSTONE_TORCH_ON);
+                ? Material.SULPHUR
+                : percent < 0.5F ? Material.REDSTONE : Material.REDSTONE_BLOCK);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(ChatColor.BLUE + ChatColor.BOLD.toString() + "Energy");
         meta.setLore(Collections.singletonList(
-                ChatColor.GRAY + String.format("%d / %d RJ (%.1f%%)", energy, energyMax, percent)));
+                ChatColor.GRAY + String.format("%d / %d RJ (%.1f%%)", energy, energyMax, percent * 100)));
         stack.setItemMeta(meta);
         return stack;
     }

@@ -20,11 +20,11 @@ public class SlotBurnTime extends GuiSlot {
     @Override
     public ItemStack stack() {
         int time = source.getAsInt();
-        ItemStack stack = new ItemStack(time > 0 ? Material.LAVA : Material.STAINED_GLASS_PANE);
+        ItemStack stack = new ItemStack(time > 0 ? Material.LAVA_BUCKET : Material.IRON_FENCE);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(ChatColor.RED + ChatColor.BOLD.toString() + "Burn Time");
         meta.setLore(Collections.singletonList(
-                ChatColor.GRAY + (time > 0 ? String.format("%d tick", time) : "Nothing's burning!")));
+                ChatColor.GRAY + (time > 0 ? String.format("%d tick(s)", time) : "Nothing's burning!")));
         stack.setItemMeta(meta);
         return stack;
     }
