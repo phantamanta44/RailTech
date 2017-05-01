@@ -14,6 +14,10 @@ public class ResourceModule {
         Rail.itemRegistry().register("railtech:res-ingotCopper", new ItemResource(Material.CLAY_BRICK, "Copper Ingot"));
         Rail.itemRegistry().register("railtech:res-dustCopper", new ItemResource(Material.INK_SACK, "Copper Dust", (short)14));
         dustRecipe("railtech:res-ingotCopper", "railtech:res-dustCopper");
+        RTRecipes.register(new MaceratorRecipe(
+                ItemUtils.matching(Material.GOLD_ORE),
+                s -> Rail.itemRegistry().create("railtech:res-dustGold", 2),
+                s -> Rail.itemRegistry().create("railtech:res-dustCopper"), 0.5F));
         Rail.itemRegistry().register("railtech:res-ingotSteel", new ItemResource(Material.IRON_INGOT, "Steel Ingot"));
         Rail.itemRegistry().register("railtech:res-dustSteel", new ItemResource(Material.SULPHUR, "Steel Dust"));
         dustRecipe("railtech:res-ingotSteel", "railtech:res-dustSteel");
