@@ -2,15 +2,15 @@ package io.github.phantamanta44.mcrail.railtech.common.recipe.impl;
 
 import io.github.phantamanta44.mcrail.railtech.common.recipe.IMachineRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RecipeType;
-import io.github.phantamanta44.mcrail.railtech.util.Duo;
+import io.github.phantamanta44.mcrail.railtech.util.Pair;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
-public class MaceratorRecipe implements IMachineRecipe<ItemStack, Duo<ItemStack>> {
+public class MaceratorRecipe implements IMachineRecipe<ItemStack, Pair<ItemStack, ItemStack>> {
 
-    public static final RecipeType<ItemStack, Duo<ItemStack>> TYPE = new RecipeType<>();
+    public static final RecipeType<ItemStack, Pair<ItemStack, ItemStack>> TYPE = new RecipeType<>();
     
     private final Predicate<ItemStack> input;
     private final UnaryOperator<ItemStack> primOutput, secOutput;
@@ -24,7 +24,7 @@ public class MaceratorRecipe implements IMachineRecipe<ItemStack, Duo<ItemStack>
     }
 
     @Override
-    public RecipeType<ItemStack, Duo<ItemStack>> type() {
+    public RecipeType<ItemStack, Pair<ItemStack, ItemStack>> type() {
         return TYPE;
     }
 
@@ -34,8 +34,8 @@ public class MaceratorRecipe implements IMachineRecipe<ItemStack, Duo<ItemStack>
     }
 
     @Override
-    public Duo<ItemStack> output(ItemStack input) {
-        return Duo.of(primOutput.apply(input), secOutput.apply(input)); // FIXME
+    public Pair<ItemStack, ItemStack> output(ItemStack input) {
+        return Pair.of(primOutput.apply(input), secOutput.apply(input));
     }
 
 }
