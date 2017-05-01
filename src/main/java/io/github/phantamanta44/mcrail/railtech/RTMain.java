@@ -2,6 +2,7 @@ package io.github.phantamanta44.mcrail.railtech;
 
 import io.github.phantamanta44.mcrail.railtech.generator.GeneratorModule;
 import io.github.phantamanta44.mcrail.railtech.machine.MachineModule;
+import io.github.phantamanta44.mcrail.railtech.resource.ResourceModule;
 import io.github.phantamanta44.mcrail.railtech.tool.ToolModule;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,7 @@ public class RTMain extends JavaPlugin {
     @Override
     public void onEnable() {
         INSTANCE = this;
+        ResourceModule.init();
         GeneratorModule.init();
         MachineModule.init();
         ToolModule.init();
