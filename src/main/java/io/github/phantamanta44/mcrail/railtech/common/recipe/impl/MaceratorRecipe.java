@@ -23,6 +23,14 @@ public class MaceratorRecipe implements IMachineRecipe<ItemStack, Pair<ItemStack
         this.chance = chance;
     }
 
+    public MaceratorRecipe(Predicate<ItemStack> input, UnaryOperator<ItemStack> primOutput, UnaryOperator<ItemStack> secOutput) {
+        this(input, primOutput, secOutput, 1F);
+    }
+
+    public MaceratorRecipe(Predicate<ItemStack> input, UnaryOperator<ItemStack> output) {
+        this(input, output, null, 0F);
+    }
+
     @Override
     public RecipeType<ItemStack, Pair<ItemStack, ItemStack>> type() {
         return TYPE;
@@ -35,7 +43,7 @@ public class MaceratorRecipe implements IMachineRecipe<ItemStack, Pair<ItemStack
 
     @Override
     public Pair<ItemStack, ItemStack> output(ItemStack input) {
-        return Pair.of(primOutput.apply(input), secOutput.apply(input));
+        return Pair.of(primOutput.apply(input), Math.random() < chance ? secOutput.apply(input) : null);
     }
 
 }
