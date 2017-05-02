@@ -3,22 +3,23 @@ package io.github.phantamanta44.mcrail.railtech.machine;
 import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.crafting.RailRecipe;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 
 public class MachineModule {
 
     public static void init() {
+        Rail.itemRegistry().register("railtech:mac-energyTablet", new ItemEnergyTablet());
+        // TODO Energy tablet recipe
         Rail.signRegistry().register(
                 "railtech:mac-charger",
-                ChatColor.RESET + "Charging Apparatus",
+                ChatColor.RESET + "Energetic Infuser",
                 TileCharger::new);
         Rail.recipes().register(new RailRecipe()
-                .line(" b ").line("vav").line("rgr")
-                .ingredient('b', Material.REDSTONE_BLOCK)
-                .ingredient('v', Material.GLASS)
-                .ingredient('a', Material.ANVIL)
-                .ingredient('r', Material.REDSTONE)
-                .ingredient('g', Material.GOLD_INGOT)
+                .line(" t ").line("cfc").line("ege")
+                .ingredient('t', "railtech:mac-energyTablet")
+                .ingredient('c', "railtech:res-circuit0")
+                .ingredient('f', "railtech:res-steelCasing")
+                .ingredient('e', "railtech:res-alloy0")
+                .ingredient('g', "railtech:res-goldDust")
                 .withResult("railtech:mac-charger"));
     }
 

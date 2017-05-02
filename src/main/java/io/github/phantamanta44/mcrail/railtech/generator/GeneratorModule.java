@@ -9,17 +9,17 @@ public class GeneratorModule {
 
     public static void init() {
         Rail.signRegistry().register(
-                "railtech:gen-thermo",
-                ChatColor.RESET + "Thermoelectric Generator",
+                "railtech:gen-heat",
+                ChatColor.RESET + "Heat Generator",
                 TileThermoGenerator::new);
         Rail.recipes().register(new RailRecipe()
-                .line("bbb").line("fpf").line("rir")
-                .ingredient('b', Material.CLAY_BRICK)
-                .ingredient('f', Material.FURNACE)
-                .ingredient('p', Material.PISTON_BASE)
-                .ingredient('r', Material.REDSTONE)
+                .line("iii").line("wtw").line("cfc")
                 .ingredient('i', Material.IRON_INGOT)
-                .withResult("railtech:gen-thermo"));
+                .ingredient('w', Material.WOOD)
+                .ingredient('t', "railtech:res-ingotTitanium")
+                .ingredient('c', "railtech:res-ingotCopper")
+                .ingredient('f', Material.FURNACE)
+                .withResult("railtech:gen-heat"));
     }
 
 }
