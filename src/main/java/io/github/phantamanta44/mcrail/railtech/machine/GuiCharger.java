@@ -9,7 +9,7 @@ public class GuiCharger extends GuiInventory {
     private final TileCharger tile;
 
     public GuiCharger(TileCharger tile, Player pl) {
-        super(3, "Charging Apparatus", pl, tile.getInventory());
+        super(3, "Energetic Infuser", pl, tile.getInventory());
         this.tile = tile;
     }
 

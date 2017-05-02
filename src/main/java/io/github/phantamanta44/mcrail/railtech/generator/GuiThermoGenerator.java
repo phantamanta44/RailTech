@@ -10,7 +10,7 @@ public class GuiThermoGenerator extends GuiInventory {
     private final TileThermoGenerator tile;
 
     public GuiThermoGenerator(TileThermoGenerator tile, Player pl) {
-        super(3, "Thermoelectric Generator", pl, tile.getFuelInv());
+        super(3, "Heat Generator", pl, tile.getFuelInv());
         this.tile = tile;
     }
 
