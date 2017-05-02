@@ -7,6 +7,7 @@ import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecip
 import io.github.phantamanta44.mcrail.util.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 
 public class ResourceModule {
 
@@ -24,6 +25,10 @@ public class ResourceModule {
         Rail.itemRegistry().register("railtech:res-ingotTin", new ItemResource(Material.IRON_INGOT, "Tin Ingot"));
         Rail.itemRegistry().register("railtech:res-dustTin", new ItemResource(Material.SUGAR, "Tin Dust"));
         dustRecipe("railtech:res-ingotTin", "railtech:res-dustTin");
+        RTRecipes.register(new MaceratorRecipe(
+                ItemUtils.matching(new MaterialData(Material.STONE, (byte)1)),
+                s -> new ItemStack(Material.GRAVEL),
+                s -> Rail.itemRegistry().create("railtech:res-dustTin"), 0.05F));
         Rail.itemRegistry().register("railtech:res-ingotTitanium", new ItemResource(Material.IRON_INGOT, "Titanium Ingot"));
         Rail.itemRegistry().register("railtech:res-dustTitanium", new ItemResource(Material.INK_SACK, "Titanium Dust", (short)8));
         dustRecipe("railtech:res-ingotTitanium", "railtech:res-dustTitanium");

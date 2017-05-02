@@ -25,7 +25,7 @@ public class ItemSledgehammer implements IItemBehaviour {
 
     @Override
     public Material material() {
-        return Material.IRON_AXE;
+        return Material.IRON_PICKAXE;
     }
 
     @Override
@@ -47,6 +47,8 @@ public class ItemSledgehammer implements IItemBehaviour {
                     block.getWorld().dropItemNaturally(block.getLocation(), result.getB());
             });
             stack.setDurability((short)(stack.getDurability() + 1));
+            if (stack.getDurability() > 250)
+                event.getPlayer().setItemInHand(null);
         }
     }
 
