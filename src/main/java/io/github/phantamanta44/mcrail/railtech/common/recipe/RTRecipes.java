@@ -18,14 +18,18 @@ public class RTRecipes {
     }
 
     @SuppressWarnings("unchecked")
-    public static <I, O> O result(RecipeType<I, O> type, I input) {
+    public static <I, O> IMachineRecipe<I, O> recipeFor(RecipeType<I, O> type, I input) {
         Collection<IMachineRecipe> recipes = INSTANCE.recipes.get(type);
         if (recipes == null)
             return null;
-        return (O)recipes.stream()
+        return (IMachineRecipe<I, O>)recipes.stream()
                 .filter(r -> r.matches(input))
-                .map(r -> r.output(input))
                 .findFirst().orElse(null);
+    }
+
+    public static <I, O> O result(RecipeType<I, O> type, I input) {
+        IMachineRecipe<I, O> recipe = recipeFor(type, input);
+        return recipe != null ? recipe.output(input) : null;
     }
 
     private final Map<RecipeType, Collection<IMachineRecipe>> recipes;

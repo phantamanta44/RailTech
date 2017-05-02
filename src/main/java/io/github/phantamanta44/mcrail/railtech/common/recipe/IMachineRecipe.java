@@ -6,6 +6,8 @@ public interface IMachineRecipe<I, O> {
 
     boolean matches(I input);
 
+    boolean canProcess(I input, O output);
+
     O output(I input);
 
 }

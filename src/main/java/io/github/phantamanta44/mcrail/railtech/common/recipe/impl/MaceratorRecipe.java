@@ -10,7 +10,7 @@ import java.util.function.UnaryOperator;
 
 public class MaceratorRecipe implements IMachineRecipe<ItemStack, Pair<ItemStack, ItemStack>> {
 
-    public static final RecipeType<ItemStack, Pair<ItemStack, ItemStack>> TYPE = new RecipeType<>();
+    public static final RecipeType<ItemStack, Pair<ItemStack, ItemStack>> TYPE = new RecipeType<>(ItemStack.class, Pair.class);
     
     private final Predicate<ItemStack> input;
     private final UnaryOperator<ItemStack> primOutput, secOutput;
@@ -39,6 +39,11 @@ public class MaceratorRecipe implements IMachineRecipe<ItemStack, Pair<ItemStack
     @Override
     public boolean matches(ItemStack input) {
         return this.input.test(input);
+    }
+
+    @Override
+    public boolean canProcess(ItemStack input, Pair<ItemStack, ItemStack> output) {
+        return false; // TODO Implement
     }
 
     @Override
