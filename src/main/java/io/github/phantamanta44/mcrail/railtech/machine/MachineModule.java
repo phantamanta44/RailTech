@@ -7,8 +7,11 @@ import org.bukkit.ChatColor;
 public class MachineModule {
 
     public static void init() {
+        // Energy tablet
         Rail.itemRegistry().register("railtech:mac-energyTablet", new ItemEnergyTablet());
         // TODO Energy tablet recipe
+
+        // Energetic infuser
         Rail.signRegistry().register(
                 "railtech:mac-charger",
                 ChatColor.RESET + "Energetic Infuser",
@@ -21,6 +24,13 @@ public class MachineModule {
                 .ingredient('e', "railtech:res-alloy0")
                 .ingredient('g', "railtech:res-goldDust")
                 .withResult("railtech:mac-charger"));
+
+        // Macerator
+        Rail.signRegistry().register(
+                "railtech:mac-macerator",
+                ChatColor.RESET + "Macerator",
+                TileMacerator::new);
+        // TODO Macerator recipe
     }
 
 }
