@@ -21,7 +21,7 @@ public class TileThermoGenerator extends TileEnergized {
     private ItemStack[] fuel;
 
     public TileThermoGenerator(Block block) {
-        super(block, "railtech:gen-thermo", 100000);
+        super(block, "railtech:gen-heat", 100000);
         this.burnTime = 0;
         this.fuel = new ItemStack[1];
     }
