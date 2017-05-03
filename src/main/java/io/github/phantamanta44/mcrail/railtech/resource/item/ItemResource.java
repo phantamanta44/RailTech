@@ -1,4 +1,4 @@
-package io.github.phantamanta44.mcrail.railtech.resource;
+package io.github.phantamanta44.mcrail.railtech.resource.item;
 
 import io.github.phantamanta44.mcrail.item.IItemBehaviour;
 import io.github.phantamanta44.mcrail.item.characteristic.CharDamage;

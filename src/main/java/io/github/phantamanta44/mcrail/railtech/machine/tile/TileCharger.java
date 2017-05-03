@@ -1,9 +1,10 @@
-package io.github.phantamanta44.mcrail.railtech.machine;
+package io.github.phantamanta44.mcrail.railtech.machine.tile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railflux.IEnergyConsumer;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergized;
+import io.github.phantamanta44.mcrail.railtech.machine.gui.GuiCharger;
 import io.github.phantamanta44.mcrail.railtech.util.EnergyUtils;
 import io.github.phantamanta44.mcrail.util.AdapterUtils;
 import io.github.phantamanta44.mcrail.util.JsonUtils;

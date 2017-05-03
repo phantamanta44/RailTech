@@ -1,8 +1,9 @@
-package io.github.phantamanta44.mcrail.railtech.generator;
+package io.github.phantamanta44.mcrail.railtech.generator.tile;
 
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergized;
+import io.github.phantamanta44.mcrail.railtech.generator.gui.GuiThermoGenerator;
 import io.github.phantamanta44.mcrail.railtech.util.BurnTime;
 import io.github.phantamanta44.mcrail.railtech.util.EnergyUtils;
 import io.github.phantamanta44.mcrail.util.JsonUtils;

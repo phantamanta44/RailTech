@@ -1,12 +1,14 @@
-package io.github.phantamanta44.mcrail.railtech.machine;
+package io.github.phantamanta44.mcrail.railtech.machine.tile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railflux.IEnergyProvider;
+import io.github.phantamanta44.mcrail.railtech.common.UpgradeType;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.IMachineRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RecipeType;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergized;
+import io.github.phantamanta44.mcrail.railtech.machine.gui.GuiBasicProcessing;
 import io.github.phantamanta44.mcrail.railtech.util.Pair;
 import io.github.phantamanta44.mcrail.util.AdapterUtils;
 import io.github.phantamanta44.mcrail.util.ItemUtils;
@@ -134,8 +136,33 @@ public abstract class TileBasicProcessing<T> extends TileEnergized {
         return (int)Math.floor(baseWorkNeeded * Math.pow(0.75, speedUpgrades));
     }
 
-    protected float completion() {
+    public float completion() {
         return (float)work / (float)workNeeded();
+    }
+
+    public ItemStack[] inv() {
+        return inv;
+    }
+
+    public RecipeType<ItemStack, T> recipeType() {
+        return recipeType;
+    }
+
+    public int upgrades(UpgradeType type) {
+        switch (type) {
+            case SPEED:
+                return speedUpgrades;
+            default:
+                return 0;
+        }
+    }
+
+    public void offsetUpgrades(UpgradeType type, int qty) {
+        switch (type) {
+            case SPEED:
+                speedUpgrades += qty;
+                break;
+        }
     }
 
     @SuppressWarnings("unchecked")

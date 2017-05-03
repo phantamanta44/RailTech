@@ -1,4 +1,4 @@
-package io.github.phantamanta44.mcrail.railtech.machine;
+package io.github.phantamanta44.mcrail.railtech.machine.tile;
 
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
 import io.github.phantamanta44.mcrail.railtech.util.Pair;

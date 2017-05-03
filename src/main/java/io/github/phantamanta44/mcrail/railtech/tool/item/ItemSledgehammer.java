@@ -1,4 +1,4 @@
-package io.github.phantamanta44.mcrail.railtech.tool;
+package io.github.phantamanta44.mcrail.railtech.tool.item;
 
 import io.github.phantamanta44.mcrail.item.IItemBehaviour;
 import io.github.phantamanta44.mcrail.item.characteristic.CharName;

@@ -1,4 +1,4 @@
-package io.github.phantamanta44.mcrail.railtech.machine;
+package io.github.phantamanta44.mcrail.railtech.machine.item;
 
 import io.github.phantamanta44.mcrail.item.characteristic.CharName;
 import io.github.phantamanta44.mcrail.railflux.item.ItemLastLoreEnergy;

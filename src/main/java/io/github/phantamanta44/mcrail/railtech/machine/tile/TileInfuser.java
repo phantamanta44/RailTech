@@ -1,4 +1,4 @@
-package io.github.phantamanta44.mcrail.railtech.machine;
+package io.github.phantamanta44.mcrail.railtech.machine.tile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

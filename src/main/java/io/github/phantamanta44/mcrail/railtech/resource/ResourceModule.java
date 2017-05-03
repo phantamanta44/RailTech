@@ -5,6 +5,7 @@ import io.github.phantamanta44.mcrail.crafting.RailRecipe;
 import io.github.phantamanta44.mcrail.crafting.RailSmeltRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
+import io.github.phantamanta44.mcrail.railtech.resource.item.ItemResource;
 import io.github.phantamanta44.mcrail.util.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

@@ -4,7 +4,7 @@ import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.IMachineRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RecipeType;
-import io.github.phantamanta44.mcrail.railtech.machine.TileInfuser;
+import io.github.phantamanta44.mcrail.railtech.machine.tile.TileInfuser;
 import io.github.phantamanta44.mcrail.util.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

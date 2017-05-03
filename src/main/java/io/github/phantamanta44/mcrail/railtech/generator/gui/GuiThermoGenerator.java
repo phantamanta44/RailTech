@@ -1,8 +1,9 @@
-package io.github.phantamanta44.mcrail.railtech.generator;
+package io.github.phantamanta44.mcrail.railtech.generator.gui;
 
 import io.github.phantamanta44.mcrail.gui.GuiInventory;
 import io.github.phantamanta44.mcrail.railtech.common.gui.slot.SlotBurnTime;
 import io.github.phantamanta44.mcrail.railtech.common.gui.slot.SlotEnergyMeter;
+import io.github.phantamanta44.mcrail.railtech.generator.tile.TileThermoGenerator;
 import org.bukkit.entity.Player;
 
 public class GuiThermoGenerator extends GuiInventory {

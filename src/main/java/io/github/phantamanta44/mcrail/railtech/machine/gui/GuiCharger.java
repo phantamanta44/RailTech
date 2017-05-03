@@ -1,7 +1,8 @@
-package io.github.phantamanta44.mcrail.railtech.machine;
+package io.github.phantamanta44.mcrail.railtech.machine.gui;
 
 import io.github.phantamanta44.mcrail.gui.GuiInventory;
 import io.github.phantamanta44.mcrail.railtech.common.gui.slot.SlotEnergyMeter;
+import io.github.phantamanta44.mcrail.railtech.machine.tile.TileCharger;
 import org.bukkit.entity.Player;
 
 public class GuiCharger extends GuiInventory {

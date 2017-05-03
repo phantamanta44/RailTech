@@ -4,7 +4,11 @@ import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.crafting.RailRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.InfuserRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
-import io.github.phantamanta44.mcrail.railtech.resource.ItemResource;
+import io.github.phantamanta44.mcrail.railtech.machine.item.ItemEnergyTablet;
+import io.github.phantamanta44.mcrail.railtech.machine.tile.TileCharger;
+import io.github.phantamanta44.mcrail.railtech.machine.tile.TileInfuser;
+import io.github.phantamanta44.mcrail.railtech.machine.tile.TileMacerator;
+import io.github.phantamanta44.mcrail.railtech.resource.item.ItemResource;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 

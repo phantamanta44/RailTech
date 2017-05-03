@@ -2,6 +2,8 @@ package io.github.phantamanta44.mcrail.railtech.tool;
 
 import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.crafting.RailRecipe;
+import io.github.phantamanta44.mcrail.railtech.tool.item.ItemEnergizedTool;
+import io.github.phantamanta44.mcrail.railtech.tool.item.ItemSledgehammer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
