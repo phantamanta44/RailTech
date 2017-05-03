@@ -62,7 +62,7 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
         }
 
         public Input(TileInfuser tile) {
-            this(null, Type.CARBON, 0); // TODO Implement
+            this(tile.getInv()[0], tile.getResource(), tile.getResourceAmount());
         }
 
     }

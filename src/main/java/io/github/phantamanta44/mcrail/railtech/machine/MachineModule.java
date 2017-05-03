@@ -32,7 +32,7 @@ public class MachineModule {
                 .ingredient('a', "railtech:res-alloy0")
                 .ingredient('t', "railtech:res-dustTitanium")
                 .withResult("railtech:mac-upgradeSpeed"));
-        // TODO Energy updade?
+        // TODO Energy upgrade?
 
         // Metallurgic infuser
         Rail.signRegistry().register(

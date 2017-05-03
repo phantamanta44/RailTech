@@ -86,6 +86,18 @@ public class TileInfuser extends TileEnergized {
         return (float)work / (float)workNeeded();
     }
 
+    public ItemStack[] getInv() {
+        return inv;
+    }
+
+    public InfuserRecipe.Type getResource() {
+        return resource;
+    }
+
+    public int getResourceAmount() {
+        return resAmt;
+    }
+
     @Override
     public void onInteract(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK)

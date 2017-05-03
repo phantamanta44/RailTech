@@ -31,7 +31,7 @@ public abstract class TileBasicProcessing<T> extends TileEnergized {
     protected final int baseWorkNeeded;
     protected final ItemStack[] inv;
     protected int work;
-    protected int speedUpgrades; // TODO Upgrades
+    protected int speedUpgrades;
 
     public TileBasicProcessing(Block block, String id, String name, RecipeType<ItemStack, T> recipeType, int power, int workTicks, int bufferSize) {
         super(block, id, bufferSize);
