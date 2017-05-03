@@ -55,7 +55,6 @@ public class ResourceModule {
 
         // Alloys
         Rail.itemRegistry().register("railtech:res-alloy0", new ItemResource(Material.MAGMA_CREAM, "Enriched Alloy"));
-        // TODO Enriched alloy recipe
         // TODO Other alloys
 
         // Control circuits

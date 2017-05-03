@@ -77,14 +77,20 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
         RTRecipes.register(new InfuserRecipe(
                 ItemUtils.matching("railtech:res-enrichedIron"), Type.CARBON, 10, Rail.itemRegistry().create("railtech:res-dustSteel")));
         RTRecipes.register(new InfuserRecipe(
+                ItemUtils.matching(Material.IRON_INGOT), Type.REDSTONE, 10, Rail.itemRegistry().create("railtech:alloy0")));
+        RTRecipes.register(new InfuserRecipe(
+                ItemUtils.matching("railtech:res-ingotTitanium"), Type.REDSTONE, 10, Rail.itemRegistry().create("railtech:circuit0")));
+        RTRecipes.register(new InfuserRecipe(
                 ItemUtils.matching(Material.DIRT), Type.FUNGI, 10, new ItemStack(Material.MYCEL)));
         RTRecipes.register(new InfuserRecipe(
                 ItemUtils.matching(Material.COBBLESTONE), Type.BIOMASS, 10, new ItemStack(Material.MOSSY_COBBLESTONE)));
         RTRecipes.register(new InfuserRecipe(
                 ItemUtils.matching(new MaterialData(Material.SMOOTH_BRICK, (byte)0)), Type.CARBON, 10, new ItemStack(Material.SMOOTH_BRICK, 1, (short)1)));
-        // Bronze ingot?
-        // TODO Refined obsidian dust recipe
-        // TODO Alloys and circuits
+        RTRecipes.register(new InfuserRecipe(
+                ItemUtils.matching(Material.SAND), Type.BIOMASS, 10, new ItemStack(Material.DIRT)));
+        RTRecipes.register(new InfuserRecipe(
+                ItemUtils.matching(Material.DIRT), Type.BIOMASS, 10, new ItemStack(Material.DIRT, 1, (short)2)));
+        // TODO Reinforced and atomic alloys
     }
 
 }
