@@ -3,6 +3,8 @@ package io.github.phantamanta44.mcrail.railtech.machine.tile;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railflux.IEnergyProvider;
+import io.github.phantamanta44.mcrail.railtech.common.recipe.IMachineRecipe;
+import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.InfuserRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergized;
 import io.github.phantamanta44.mcrail.util.AdapterUtils;
@@ -41,7 +43,32 @@ public class TileInfuser extends TileEnergized {
 
     @Override
     public void tick() {
-        // TODO Implement
+        InfuserRecipe.Input input = new InfuserRecipe.Input(this);
+        IMachineRecipe<InfuserRecipe.Input, ItemStack> recipe =
+                RTRecipes.recipeFor(InfuserRecipe.TYPE, input);
+        if (recipe != null && recipe.canProcess(input, inv[2])) {
+            int power = power();
+            if (canProvide(power)) {
+                requestEnergy(power);
+                if (++work >= workNeeded()) {
+                    work = 0;
+                    if (inv[0].getAmount() > 1)
+                        inv[0].setAmount(inv[0].getAmount() - 1);
+                    else
+                        inv[0] = null;
+                    if (!ItemUtils.isNully(inv[2]))
+                        inv[2].setAmount(inv[2].getAmount() + ); // FIXME Finish
+                }
+            }
+            lines().b(String.format("Infusing... (%.0f%%)", completion() * 100));
+        } else {
+            work = 0;
+            lines().b("No infusion!");
+        }
+        if (resAmt < 1) {
+            resource = null;
+            // TODO Load resources
+        }
         int energyEmpty = energyCapacity() - energyStored();
         if (energyEmpty > 0 && ItemUtils.isNotNully(inv[3])) {
             if (ItemUtils.matching(Material.REDSTONE).test(inv[3])) {
