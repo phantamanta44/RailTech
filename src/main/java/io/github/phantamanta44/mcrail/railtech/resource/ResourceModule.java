@@ -20,7 +20,7 @@ public class ResourceModule {
         RTRecipes.register(new MaceratorRecipe(
                 ItemUtils.matching(Material.GOLD_ORE),
                 s -> Rail.itemRegistry().create("railtech:res-dustGold", 2),
-                s -> Rail.itemRegistry().create("railtech:res-dustCopper"), 0.5F));
+                s -> Rail.itemRegistry().create("railtech:res-dustCopper", (int)Math.floor(Math.random() * 2) + 1), 0.5F));
 
         // Steel stuff
         Rail.itemRegistry().register("railtech:res-ingotSteel", new ItemResource(Material.IRON_INGOT, "Steel Ingot"));
@@ -64,7 +64,8 @@ public class ResourceModule {
         Rail.recipes().register(new RailRecipe()
                 .line(" s ").line("sts").line(" s ")
                 .ingredient('s', "railtech:res-ingotSteel")
-                .ingredient('t', "railtech:res-ingotTitanium"));
+                .ingredient('t', "railtech:res-ingotTitanium")
+                .withResult("railtech:res-steelCasing"));
     }
 
     private static void dustRecipe(Material ingot, String dust) {

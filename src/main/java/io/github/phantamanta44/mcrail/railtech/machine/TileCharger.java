@@ -64,7 +64,7 @@ public class TileCharger extends TileEnergized {
                     .map(i -> AdapterUtils.adapt(IEnergyConsumer.class, i))
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList()),
-                    (int)Math.floor(7920 * (float)energy / (float)energyMax) + 80);
+                    Math.min(energy, (int)Math.floor(7920 * (float)energy / (float)energyMax) + 80));
         }
         lines().a(String.format("%d / %d RJ (%.1f%%)", energy, energyMax, 100 * (float)energy / (float)energyMax));
     }

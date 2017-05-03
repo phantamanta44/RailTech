@@ -2,14 +2,21 @@ package io.github.phantamanta44.mcrail.railtech.machine;
 
 import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.crafting.RailRecipe;
+import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 
 public class MachineModule {
 
     public static void init() {
         // Energy tablet
         Rail.itemRegistry().register("railtech:mac-energyTablet", new ItemEnergyTablet());
-        // TODO Energy tablet recipe
+        Rail.recipes().register(new RailRecipe()
+                .line("rgr").line("aga").line("rgr")
+                .ingredient('r', Material.REDSTONE)
+                .ingredient('g', Material.GOLD_INGOT)
+                .ingredient('a', "railtech:res-alloy0")
+                .withResult("railtech:mac-energyTablet"));
 
         // Energetic infuser
         Rail.signRegistry().register(
@@ -30,7 +37,14 @@ public class MachineModule {
                 "railtech:mac-macerator",
                 ChatColor.RESET + "Macerator",
                 TileMacerator::new);
-        // TODO Macerator recipe
+        Rail.recipes().register(new RailRecipe()
+                .line("rcr").line("isi").line("rcr")
+                .ingredient('r', Material.REDSTONE)
+                .ingredient('c', "railtech:res-circuit0")
+                .ingredient('i', Material.IRON_INGOT)
+                .ingredient('s', "railtech:res-steelCasing")
+                .withResult("railtech:mac-macerator"));
+        MaceratorRecipe.registerDefault();
     }
 
 }
