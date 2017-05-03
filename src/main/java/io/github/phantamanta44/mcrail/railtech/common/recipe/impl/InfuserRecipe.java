@@ -5,11 +5,13 @@ import io.github.phantamanta44.mcrail.railtech.common.recipe.IMachineRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RecipeType;
 import io.github.phantamanta44.mcrail.railtech.machine.tile.TileInfuser;
+import io.github.phantamanta44.mcrail.railtech.util.Pair;
 import io.github.phantamanta44.mcrail.util.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
+import java.util.*;
 import java.util.function.Predicate;
 
 public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemStack> {
@@ -49,6 +51,10 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
         return output.clone();
     }
 
+    public int resourceCost() {
+        return resAmount;
+    }
+
     public static class Input {
 
         private final ItemStack input;
@@ -62,34 +68,110 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
         }
 
         public Input(TileInfuser tile) {
-            this(tile.getInv()[0], tile.getResource(), tile.getResourceAmount());
+            this(tile.inv()[0], tile.getResource(), tile.getResourceAmount());
+        }
+
+    }
+    
+    public static class Type {
+
+        private static final Map<String, Type> types;
+
+        static {
+            types = new HashMap<>();
+
+            registerType("carbon", "Carbon", new ItemStack(Material.COAL));
+            registerSource("carbon", ItemUtils.matching(new MaterialData(Material.COAL, (byte)0)), 10);
+            registerSource("carbon", ItemUtils.matching(new MaterialData(Material.COAL, (byte)1)), 20);
+            registerSource("carbon", ItemUtils.matching("railtech:res-compressedCarbon"), 100);
+
+            registerType("redstone", "Redstone", new ItemStack(Material.REDSTONE));
+            registerSource("redstone", ItemUtils.matching(Material.REDSTONE), 10);
+            registerSource("redstone", ItemUtils.matching(Material.REDSTONE_BLOCK), 90);
+            registerSource("redstone", ItemUtils.matching("railtech:res-compressedRedstone"), 100);
+
+            registerType("diamond", "Diamond", new ItemStack(Material.DIAMOND));
+            // TODO Diamond dust infuser source
+
+            registerType("tin", "Tin", new ItemStack(Material.IRON_INGOT));
+            registerSource("redstone", ItemUtils.matching("railtech:res-dustTin"), 50);
+
+            registerType("biomass", "Biomass", new ItemStack(Material.SEEDS));
+            // TODO Biofuel dust infuser source
+
+            registerType("fungi", "Fungi", new ItemStack(Material.RED_MUSHROOM));
+            registerSource("redstone", ItemUtils.matching(Material.BROWN_MUSHROOM), 10);
+            registerSource("redstone", ItemUtils.matching(Material.RED_MUSHROOM), 10);
+        }
+
+        public static void registerType(String name, String displayName, ItemStack icon) {
+            types.put(name, new Type(name, displayName, icon));
+        }
+
+        public static void registerSource(String name, Predicate<ItemStack> matcher, int amount) {
+            types.get(name).sources.add(Pair.of(matcher, amount));
+        }
+
+        public static Type byName(String name) {
+            return types.get(name);
+        }
+
+        public static Pair<Type, Integer> forStack(ItemStack stack) {
+            return types.values().stream()
+                    .map(t -> t.sources.stream()
+                            .filter(m -> m.getA().test(stack))
+                            .findAny()
+                            .map(m -> Pair.of(t, m.getB()))
+                            .orElse(null))
+                    .filter(Objects::nonNull)
+                    .findAny()
+                    .orElse(null);
+        }
+
+        private final String name, displayName;
+        private final ItemStack icon;
+        private final Collection<Pair<Predicate<ItemStack>, Integer>> sources;
+
+        private Type(String name, String displayName, ItemStack icon) {
+            this.name = name;
+            this.displayName = displayName;
+            this.icon = icon;
+            this.sources = new HashSet<>();
+        }
+
+        public String name() {
+            return name;
+        }
+
+        public String displayName() {
+            return displayName;
+        }
+
+        public ItemStack icon() {
+            return icon.clone();
         }
 
     }
 
-    public enum Type {
-        BIOMASS, CARBON, REDSTONE, FUNGI, TIN, DIAMOND
-    }
-
     public static void registerDefault() {
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.IRON_INGOT), Type.CARBON, 10, Rail.itemRegistry().create("railtech:res-enrichedIron")));
+                ItemUtils.matching(Material.IRON_INGOT), Type.byName("carbon"), 10, Rail.itemRegistry().create("railtech:res-enrichedIron")));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching("railtech:res-enrichedIron"), Type.CARBON, 10, Rail.itemRegistry().create("railtech:res-dustSteel")));
+                ItemUtils.matching("railtech:res-enrichedIron"), Type.byName("carbon"), 10, Rail.itemRegistry().create("railtech:res-dustSteel")));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.IRON_INGOT), Type.REDSTONE, 10, Rail.itemRegistry().create("railtech:alloy0")));
+                ItemUtils.matching(Material.IRON_INGOT), Type.byName("redstone"), 10, Rail.itemRegistry().create("railtech:alloy0")));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching("railtech:res-ingotTitanium"), Type.REDSTONE, 10, Rail.itemRegistry().create("railtech:circuit0")));
+                ItemUtils.matching("railtech:res-ingotTitanium"), Type.byName("redstone"), 10, Rail.itemRegistry().create("railtech:circuit0")));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.DIRT), Type.FUNGI, 10, new ItemStack(Material.MYCEL)));
+                ItemUtils.matching(Material.DIRT), Type.byName("fungi"), 10, new ItemStack(Material.MYCEL)));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.COBBLESTONE), Type.BIOMASS, 10, new ItemStack(Material.MOSSY_COBBLESTONE)));
+                ItemUtils.matching(Material.COBBLESTONE), Type.byName("biomass"), 10, new ItemStack(Material.MOSSY_COBBLESTONE)));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(new MaterialData(Material.SMOOTH_BRICK, (byte)0)), Type.CARBON, 10, new ItemStack(Material.SMOOTH_BRICK, 1, (short)1)));
+                ItemUtils.matching(new MaterialData(Material.SMOOTH_BRICK, (byte)0)), Type.byName("carbon"), 10, new ItemStack(Material.SMOOTH_BRICK, 1, (short)1)));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.SAND), Type.BIOMASS, 10, new ItemStack(Material.DIRT)));
+                ItemUtils.matching(Material.SAND), Type.byName("biomass"), 10, new ItemStack(Material.DIRT)));
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.DIRT), Type.BIOMASS, 10, new ItemStack(Material.DIRT, 1, (short)2)));
+                ItemUtils.matching(Material.DIRT), Type.byName("biomass"), 10, new ItemStack(Material.DIRT, 1, (short)2)));
         // TODO Reinforced and atomic alloys
     }
 

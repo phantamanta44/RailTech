@@ -53,13 +53,22 @@ public class ResourceModule {
         Rail.itemRegistry().register("railtech:res-dustGold", new ItemResource(Material.GLOWSTONE_DUST, "Gold Dust"));
         dustRecipe(Material.GOLD_INGOT, "railtech:res-dustGold");
 
+        // Compressed infuser ingredients
+        Rail.itemRegistry().register("railtech:res-compressedCarbon", new ItemResource(Material.FLINT, "Compressed Carbon"));
+        RTRecipes.register(new MaceratorRecipe(
+                ItemUtils.matching(Material.COAL),
+                s -> Rail.itemRegistry().create("railtech:res-compressedCarbon")));
+        Rail.itemRegistry().register("railtech:res-compressedRedstone", new ItemResource(Material.INK_SACK, "Compressed Redstone", (short)1));
+        RTRecipes.register(new MaceratorRecipe(
+                ItemUtils.matching(Material.REDSTONE),
+                s -> Rail.itemRegistry().create("railtech:res-compressedRedstone")));
+
         // Alloys
         Rail.itemRegistry().register("railtech:res-alloy0", new ItemResource(Material.MAGMA_CREAM, "Enriched Alloy"));
         // TODO Other alloys
 
         // Control circuits
         Rail.itemRegistry().register("railtech:res-circuit0", new ItemResource(Material.WOOD_PLATE, "Basic Control Circuit"));
-        // TODO Basic control circuit recipe
         // TODO Other control circuits
 
         // Steel casing
