@@ -37,7 +37,7 @@ public abstract class TileBasicProcessing<T> extends TileEnergized {
         this.recipeType = recipeType;
         this.basePower = power;
         this.baseWorkNeeded = workTicks;
-        this.inv = new ItemStack[5];
+        this.inv = new ItemStack[6];
         this.work = this.speedUpgrades = 0;
     }
 
@@ -74,6 +74,13 @@ public abstract class TileBasicProcessing<T> extends TileEnergized {
                     offerEnergy(chargeItem.requestEnergy(energyEmpty));
             }
         }
+        if (speedUpgrades < 8 && ItemUtils.isNotNully(inv[5]) && ItemUtils.instOf("railtech:mac-upgradeSpeed", inv[5])) {
+            if (inv[5].getAmount() > 1)
+                inv[5].setAmount(inv[5].getAmount() - 1);
+            else
+                inv[5] = null;
+            speedUpgrades++;
+        }
         lines().a(String.format("%d / %d RJ", energy, energyMax));
     }
 
@@ -106,7 +113,7 @@ public abstract class TileBasicProcessing<T> extends TileEnergized {
         work = dto.get("work").getAsInt();
         speedUpgrades = dto.get("speedUpgrades").getAsInt();
         JsonArray invDto = dto.get("inv").getAsJsonArray();
-        for (int i = 0; i < inv.length; i++)
+        for (int i = 0; i < invDto.size(); i++)
             inv[i] = JsonUtils.deserItemStack(invDto.get(i));
     }
 

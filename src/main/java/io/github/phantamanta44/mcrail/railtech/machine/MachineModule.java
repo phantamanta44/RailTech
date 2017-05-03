@@ -3,6 +3,7 @@ package io.github.phantamanta44.mcrail.railtech.machine;
 import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.crafting.RailRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
+import io.github.phantamanta44.mcrail.railtech.resource.ItemResource;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
@@ -17,6 +18,16 @@ public class MachineModule {
                 .ingredient('g', Material.GOLD_INGOT)
                 .ingredient('a', "railtech:res-alloy0")
                 .withResult("railtech:mac-energyTablet"));
+
+        // Speed upgrade
+        Rail.itemRegistry().register("railtech:mac-upgradeSpeed", new ItemResource(Material.DIAMOND_BARDING, "Speed Upgrade"));
+        Rail.recipes().register(new RailRecipe()
+                .line(" g ").line("ata").line(" g ")
+                .ingredient('g', Material.GLASS)
+                .ingredient('a', "railtech:res-alloy0")
+                .ingredient('t', "railtech:res-dustTitanium")
+                .withResult("railtech:mac-upgradeSpeed"));
+        // TODO Energy updade?
 
         // Energetic infuser
         Rail.signRegistry().register(

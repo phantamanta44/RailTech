@@ -45,7 +45,7 @@ public class TileCharger extends TileEnergized {
     @Override
     public void deserialize(JsonObject dto) {
         JsonArray invDto = dto.get("inv").getAsJsonArray();
-        for (int i = 0; i < inv.length; i++)
+        for (int i = 0; i < invDto.size(); i++)
             inv[i] = JsonUtils.deserItemStack(invDto.get(i));
     }
 
