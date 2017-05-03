@@ -2,6 +2,7 @@ package io.github.phantamanta44.mcrail.railtech.machine;
 
 import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.crafting.RailRecipe;
+import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.InfuserRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
 import io.github.phantamanta44.mcrail.railtech.resource.ItemResource;
 import org.bukkit.ChatColor;
@@ -28,6 +29,20 @@ public class MachineModule {
                 .ingredient('t', "railtech:res-dustTitanium")
                 .withResult("railtech:mac-upgradeSpeed"));
         // TODO Energy updade?
+
+        // Metallurgic infuser
+        Rail.signRegistry().register(
+                "railtech:mac-infuser",
+                ChatColor.RESET + "Metallurgic Infuser",
+                TileInfuser::new);
+        Rail.recipes().register(new RailRecipe()
+                .line("ifi").line("rtr").line("ifi")
+                .ingredient('i', Material.IRON_INGOT)
+                .ingredient('f', Material.FURNACE)
+                .ingredient('r', Material.REDSTONE)
+                .ingredient('t', "railtech:res-ingotTitanium")
+                .withResult("railtech:mac-infuser"));
+        InfuserRecipe.registerDefault();
 
         // Energetic infuser
         Rail.signRegistry().register(

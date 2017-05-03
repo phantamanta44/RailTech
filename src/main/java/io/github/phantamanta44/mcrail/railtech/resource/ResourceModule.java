@@ -34,6 +34,9 @@ public class ResourceModule {
                 s -> new ItemStack(Material.GRAVEL),
                 s -> Rail.itemRegistry().create("railtech:res-dustTin"), 0.05F));
 
+        // Enriched iron
+        Rail.itemRegistry().register("railtech:res-enrichedIron", new ItemResource(Material.SULPHUR, "Enriched Iron"));
+
         // Titanium stuff
         Rail.itemRegistry().register("railtech:res-ingotTitanium", new ItemResource(Material.IRON_INGOT, "Titanium Ingot"));
         Rail.itemRegistry().register("railtech:res-dustTitanium", new ItemResource(Material.INK_SACK, "Titanium Dust", (short)8));
