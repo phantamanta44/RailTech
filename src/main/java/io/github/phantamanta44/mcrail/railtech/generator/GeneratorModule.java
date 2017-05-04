@@ -13,14 +13,6 @@ public class GeneratorModule {
                 "railtech:gen-heat",
                 ChatColor.RESET + "Heat Generator",
                 TileThermoGenerator::new);
-        Rail.recipes().register(new RailRecipe()
-                .line("iii").line("wtw").line("cfc")
-                .ingredient('i', Material.IRON_INGOT)
-                .ingredient('w', Material.WOOD)
-                .ingredient('t', "railtech:res-ingotTitanium")
-                .ingredient('c', "railtech:res-ingotCopper")
-                .ingredient('f', Material.FURNACE)
-                .withResult("railtech:gen-heat"));
     }
 
 }

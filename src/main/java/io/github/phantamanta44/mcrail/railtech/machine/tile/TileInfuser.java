@@ -3,9 +3,11 @@ package io.github.phantamanta44.mcrail.railtech.machine.tile;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railflux.IEnergyProvider;
+import io.github.phantamanta44.mcrail.railtech.common.UpgradeType;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.InfuserRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergized;
+import io.github.phantamanta44.mcrail.railtech.machine.gui.GuiInfuser;
 import io.github.phantamanta44.mcrail.railtech.util.Pair;
 import io.github.phantamanta44.mcrail.util.AdapterUtils;
 import io.github.phantamanta44.mcrail.util.ItemUtils;
@@ -123,7 +125,7 @@ public class TileInfuser extends TileEnergized {
         return (int)Math.floor(BASE_WRK * Math.pow(0.75, speedUpgrades));
     }
 
-    protected float completion() {
+    public float completion() {
         return (float)work / (float)workNeeded();
     }
 
@@ -131,18 +133,40 @@ public class TileInfuser extends TileEnergized {
         return inv;
     }
 
-    public InfuserRecipe.Type getResource() {
+    public InfuserRecipe.Type resource() {
         return resource;
     }
 
-    public int getResourceAmount() {
+    public int resourceAmount() {
         return resAmt;
+    }
+
+    public void clearResource() {
+        resource = null;
+        resAmt = 0;
     }
 
     @Override
     public void onInteract(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK)
-            assert(true); // TODO Open gui
+            new GuiInfuser(event.getPlayer(), this);
+    }
+
+    public int upgrades(UpgradeType type) {
+        switch (type) {
+            case SPEED:
+                return speedUpgrades;
+            default:
+                return 0;
+        }
+    }
+
+    public void offsetUpgrades(UpgradeType type, int qty) {
+        switch (type) {
+            case SPEED:
+                speedUpgrades += qty;
+                break;
+        }
     }
 
     @Override

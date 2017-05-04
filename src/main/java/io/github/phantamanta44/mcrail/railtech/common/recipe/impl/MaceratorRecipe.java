@@ -1,5 +1,6 @@
 package io.github.phantamanta44.mcrail.railtech.common.recipe.impl;
 
+import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.IMachineRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RecipeType;
@@ -68,17 +69,18 @@ public class MaceratorRecipe implements IMachineRecipe<ItemStack, Pair<ItemStack
         RTRecipes.register(new MaceratorRecipe(
                 ItemUtils.matching(Material.CLAY), i -> new ItemStack(Material.CLAY_BALL, 4)));
         RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.LAPIS_ORE), i -> new ItemStack(Material.INK_SACK, 12, (short)4)));
+                ItemUtils.matching(Material.LAPIS_ORE), i -> new ItemStack(Material.INK_SACK, 6, (short)4)));
         RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.REDSTONE_ORE), i -> new ItemStack(Material.REDSTONE, 12)));
+                ItemUtils.matching(Material.REDSTONE_ORE), i -> new ItemStack(Material.REDSTONE, 6)));
         RTRecipes.register(new MaceratorRecipe(
                 ItemUtils.matching(Material.DIAMOND_ORE), i -> new ItemStack(Material.DIAMOND, 2)));
         RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.COAL_ORE), i -> new ItemStack(Material.COAL, 2)));
+                ItemUtils.matching(Material.COAL_ORE), i -> new ItemStack(Material.COAL, 2),
+                i -> Rail.itemRegistry().create("railtech:res-dustCoal"), 0.35F));
         RTRecipes.register(new MaceratorRecipe(
                 ItemUtils.matching(Material.GLOWSTONE), i -> new ItemStack(Material.GLOWSTONE_DUST, 4)));
         RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.QUARTZ_ORE), i -> new ItemStack(Material.QUARTZ, 6)));
+                ItemUtils.matching(Material.QUARTZ_ORE), i -> new ItemStack(Material.QUARTZ, 4)));
         RTRecipes.register(new MaceratorRecipe(
                 ItemUtils.matching(Material.EMERALD_ORE), i -> new ItemStack(Material.EMERALD, 2)));
         RTRecipes.register(new MaceratorRecipe(
@@ -105,7 +107,7 @@ public class MaceratorRecipe implements IMachineRecipe<ItemStack, Pair<ItemStack
         RTRecipes.register(new MaceratorRecipe(
                 ItemUtils.matching(Material.SUGAR_CANE), i -> new ItemStack(Material.SUGAR, 2)));
         RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.BONE), i -> new ItemStack(Material.INK_SACK, 6, (short)15)));
+                ItemUtils.matching(Material.BONE), i -> new ItemStack(Material.INK_SACK, 4, (short)15)));
         RTRecipes.register(new MaceratorRecipe(
                 ItemUtils.matching(Material.BLAZE_ROD), i -> new ItemStack(Material.BLAZE_POWDER, 4)));
         RTRecipes.register(new MaceratorRecipe(

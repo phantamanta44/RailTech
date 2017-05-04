@@ -1,6 +1,5 @@
 package io.github.phantamanta44.mcrail.railtech.common.recipe.impl;
 
-import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.IMachineRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RecipeType;
@@ -42,8 +41,8 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
 
     @Override
     public boolean canProcess(Input input, ItemStack output) {
-        return this.output.isSimilar(output)
-                && output.getAmount() + this.output.getAmount() <= output.getMaxStackSize();
+        return ItemUtils.isNully(output) || (this.output.isSimilar(output)
+                && output.getAmount() + this.output.getAmount() <= output.getMaxStackSize());
     }
 
     @Override
@@ -68,7 +67,7 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
         }
 
         public Input(TileInfuser tile) {
-            this(tile.inv()[0], tile.getResource(), tile.getResourceAmount());
+            this(tile.inv()[0], tile.resource(), tile.resourceAmount());
         }
 
     }
@@ -155,14 +154,6 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
 
     public static void registerDefault() {
         RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.IRON_INGOT), Type.byName("carbon"), 10, Rail.itemRegistry().create("railtech:res-enrichedIron")));
-        RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching("railtech:res-enrichedIron"), Type.byName("carbon"), 10, Rail.itemRegistry().create("railtech:res-dustSteel")));
-        RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching(Material.IRON_INGOT), Type.byName("redstone"), 10, Rail.itemRegistry().create("railtech:alloy0")));
-        RTRecipes.register(new InfuserRecipe(
-                ItemUtils.matching("railtech:res-ingotTitanium"), Type.byName("redstone"), 10, Rail.itemRegistry().create("railtech:circuit0")));
-        RTRecipes.register(new InfuserRecipe(
                 ItemUtils.matching(Material.DIRT), Type.byName("fungi"), 10, new ItemStack(Material.MYCEL)));
         RTRecipes.register(new InfuserRecipe(
                 ItemUtils.matching(Material.COBBLESTONE), Type.byName("biomass"), 10, new ItemStack(Material.MOSSY_COBBLESTONE)));
@@ -172,7 +163,6 @@ public class InfuserRecipe implements IMachineRecipe<InfuserRecipe.Input, ItemSt
                 ItemUtils.matching(Material.SAND), Type.byName("biomass"), 10, new ItemStack(Material.DIRT)));
         RTRecipes.register(new InfuserRecipe(
                 ItemUtils.matching(Material.DIRT), Type.byName("biomass"), 10, new ItemStack(Material.DIRT, 1, (short)2)));
-        // TODO Reinforced and atomic alloys
     }
 
 }

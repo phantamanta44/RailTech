@@ -1,7 +1,7 @@
 package io.github.phantamanta44.mcrail.railtech.resource;
 
 import io.github.phantamanta44.mcrail.Rail;
-import io.github.phantamanta44.mcrail.crafting.RailRecipe;
+import io.github.phantamanta44.mcrail.crafting.RailShapelessRecipe;
 import io.github.phantamanta44.mcrail.crafting.RailSmeltRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
@@ -27,6 +27,9 @@ public class ResourceModule {
         Rail.itemRegistry().register("railtech:res-ingotSteel", new ItemResource(Material.IRON_INGOT, "Steel Ingot"));
         Rail.itemRegistry().register("railtech:res-dustSteel", new ItemResource(Material.SULPHUR, "Steel Dust"));
         dustRecipe("railtech:res-ingotSteel", "railtech:res-dustSteel");
+        // TODO Way to obtain steel
+
+        // Tin stuff
         Rail.itemRegistry().register("railtech:res-ingotTin", new ItemResource(Material.IRON_INGOT, "Tin Ingot"));
         Rail.itemRegistry().register("railtech:res-dustTin", new ItemResource(Material.SUGAR, "Tin Dust"));
         dustRecipe("railtech:res-ingotTin", "railtech:res-dustTin");
@@ -34,9 +37,6 @@ public class ResourceModule {
                 ItemUtils.matching(new MaterialData(Material.STONE, (byte)1)),
                 s -> new ItemStack(Material.GRAVEL),
                 s -> Rail.itemRegistry().create("railtech:res-dustTin"), 0.05F));
-
-        // Enriched iron
-        Rail.itemRegistry().register("railtech:res-enrichedIron", new ItemResource(Material.SULPHUR, "Enriched Iron"));
 
         // Titanium stuff
         Rail.itemRegistry().register("railtech:res-ingotTitanium", new ItemResource(Material.IRON_INGOT, "Titanium Ingot"));
@@ -47,37 +47,23 @@ public class ResourceModule {
                 s -> Rail.itemRegistry().create("railtech:res-dustIron", 2),
                 s -> Rail.itemRegistry().create("railtech:res-dustTitanium"), 0.15F));
 
+        // Bronze stuff
+        Rail.itemRegistry().register("railtech:res-ingotBronze", new ItemResource(Material.CLAY_BRICK, "Bronze Ingot"));
+        Rail.itemRegistry().register("railtech:res-dustBronze", new ItemResource(Material.INK_SACK, "Bronze Dust", (short)3));
+        dustRecipe("railtech:res-ingotBronze", "railtech:res-dustBronze");
+        Rail.recipes().register(new RailShapelessRecipe()
+                .ingredient("railtech:res-dustTin")
+                .ingredient("railtech:res-dustCopper")
+                .ingredient("railtech:res-dustCopper")
+                .ingredient("railtech:res-dustCopper")
+                .withOutput("railtech:res-dustBronze", 2));
+
         // Vanilla stuff
         Rail.itemRegistry().register("railtech:res-dustIron", new ItemResource(Material.INK_SACK, "Iron Dust", (short)7));
         dustRecipe(Material.IRON_INGOT, "railtech:res-dustIron");
         Rail.itemRegistry().register("railtech:res-dustGold", new ItemResource(Material.GLOWSTONE_DUST, "Gold Dust"));
         dustRecipe(Material.GOLD_INGOT, "railtech:res-dustGold");
-
-        // Compressed infuser ingredients
-        Rail.itemRegistry().register("railtech:res-compressedCarbon", new ItemResource(Material.FLINT, "Compressed Carbon"));
-        RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.COAL),
-                s -> Rail.itemRegistry().create("railtech:res-compressedCarbon")));
-        Rail.itemRegistry().register("railtech:res-compressedRedstone", new ItemResource(Material.INK_SACK, "Compressed Redstone", (short)1));
-        RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.REDSTONE),
-                s -> Rail.itemRegistry().create("railtech:res-compressedRedstone")));
-
-        // Alloys
-        Rail.itemRegistry().register("railtech:res-alloy0", new ItemResource(Material.MAGMA_CREAM, "Enriched Alloy"));
-        // TODO Other alloys
-
-        // Control circuits
-        Rail.itemRegistry().register("railtech:res-circuit0", new ItemResource(Material.WOOD_PLATE, "Basic Control Circuit"));
-        // TODO Other control circuits
-
-        // Steel casing
-        Rail.itemRegistry().register("railtech:res-steelCasing", new ItemResource(Material.IRON_BLOCK, "Steel Casing"));
-        Rail.recipes().register(new RailRecipe()
-                .line(" s ").line("sts").line(" s ")
-                .ingredient('s', "railtech:res-ingotSteel")
-                .ingredient('t', "railtech:res-ingotTitanium")
-                .withResult("railtech:res-steelCasing"));
+        Rail.itemRegistry().register("railtech:res-dustCoal", new ItemResource(Material.MELON_SEEDS, "Coal Dust"));
     }
 
     private static void dustRecipe(Material ingot, String dust) {
