@@ -26,8 +26,8 @@
 
 ## Tier 2: Steam ##
 * Medium-tier springs
-* Basic coal boiler
-* Basic solar boiler
+* Bronze coal boiler
+* Bronze solar boiler
 * Bronze fluid tank
 * Bronze condenser
 * Bronze vapour chamber
@@ -57,16 +57,75 @@
 * Copper coil
 * Basic solenoid
 * Basic dynamo
+* Drive belt
+* Gears
 
-## Tier 4: LV Electric ##
+## Tier 4: Light Electric ##
 * Basic motor
 * Cupronickel resistive wire
 * Steam dynamo
+* Spring discharger
+* Electric fan
 * Electric air compressor
 * Electric spring winder
 * Electric boiler
-...
+* Powered smeltery
+* Electric agitator
+* Belt sander
+* Photovoltaic cell
+* Soldering station
+* Electrolysis chamber
+* Rotary washer
 
-## Tier 5: MV Electric ##
+### Progression ###
+* High-torque motor
+* Pneumatic cylinder
+* Sensor board
+* Arc node
+* Heavy-duty belt
+* Basic control circuit
 
-## Tier 6: HV Electric ##
+## Tier 5: Medium Electric ##
+* PCB manufacturer
+* Lathe
+* Motorized bandsaw
+* Extrusion machine
+* Injection moulder
+* Motorized rolling machine
+* Electric arc welder
+* High-speed macerator
+* Induction furnace
+* Electric arc furnace
+* Die casting station
+* Polymerization chamber
+* 3D printer
+
+### Progression ###
+* Heavy machine frame
+* Waterjet nozzle
+* Ionizing nozzle
+* Ultra-high-pressure compressor
+* High-frequency laser emitter
+* Integrated circuit board
+
+## Tier 6: Heavy Electric ##
+* CNC mill
+* Large-scale 3D printer
+* Laser cutting mill
+* Plasma welder
+* Implosive pulverizer
+* Incremental deposition apparatus
+
+### Progression ###
+* Dense microprocessor
+* Radiation shield
+* Dense graphite chunk
+* Graphite rod
+
+## Tier 7: Nuclear Fission ##
+* Radioisotope thermopile
+* Breeder reactor
+* Fission reactor
+
+## Tier 8: RED ##
+*(realistically, extremely dubious)*
