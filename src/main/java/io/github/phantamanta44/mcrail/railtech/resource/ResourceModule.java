@@ -1,15 +1,12 @@
 package io.github.phantamanta44.mcrail.railtech.resource;
 
 import io.github.phantamanta44.mcrail.Rail;
+import io.github.phantamanta44.mcrail.crafting.RailRecipe;
 import io.github.phantamanta44.mcrail.crafting.RailShapelessRecipe;
 import io.github.phantamanta44.mcrail.crafting.RailSmeltRecipe;
-import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
-import io.github.phantamanta44.mcrail.railtech.common.recipe.impl.MaceratorRecipe;
+import io.github.phantamanta44.mcrail.oredict.OreDictionary;
 import io.github.phantamanta44.mcrail.railtech.resource.item.ItemResource;
-import io.github.phantamanta44.mcrail.util.ItemUtils;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
 
 public class ResourceModule {
 
@@ -17,63 +14,67 @@ public class ResourceModule {
         // Copper stuff
         Rail.itemRegistry().register("railtech:res-ingotCopper", new ItemResource(Material.CLAY_BRICK, "Copper Ingot"));
         Rail.itemRegistry().register("railtech:res-dustCopper", new ItemResource(Material.INK_SACK, "Copper Dust", (short)14));
-        dustRecipe("railtech:res-ingotCopper", "railtech:res-dustCopper");
-        RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.GOLD_ORE),
-                s -> Rail.itemRegistry().create("railtech:res-dustGold", 2),
-                s -> Rail.itemRegistry().create("railtech:res-dustCopper", (int)Math.floor(Math.random() * 2) + 1), 0.5F));
+        Rail.itemRegistry().register("railtech:res-nuggetCopper", new ItemResource(Material.RABBIT_FOOT, "Copper Nugget"));
+        registerOre("Copper");
 
         // Steel stuff
         Rail.itemRegistry().register("railtech:res-ingotSteel", new ItemResource(Material.IRON_INGOT, "Steel Ingot"));
         Rail.itemRegistry().register("railtech:res-dustSteel", new ItemResource(Material.SULPHUR, "Steel Dust"));
-        dustRecipe("railtech:res-ingotSteel", "railtech:res-dustSteel");
-        // TODO Way to obtain steel
-
+        Rail.itemRegistry().register("railtech:res-nuggetSteel", new ItemResource(Material.GHAST_TEAR, "Steel Nugget"));
+        registerOre("Steel");
+        
         // Tin stuff
         Rail.itemRegistry().register("railtech:res-ingotTin", new ItemResource(Material.IRON_INGOT, "Tin Ingot"));
         Rail.itemRegistry().register("railtech:res-dustTin", new ItemResource(Material.SUGAR, "Tin Dust"));
-        dustRecipe("railtech:res-ingotTin", "railtech:res-dustTin");
-        RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(new MaterialData(Material.STONE, (byte)1)),
-                s -> new ItemStack(Material.GRAVEL),
-                s -> Rail.itemRegistry().create("railtech:res-dustTin"), 0.05F));
-
-        // Titanium stuff
-        Rail.itemRegistry().register("railtech:res-ingotTitanium", new ItemResource(Material.IRON_INGOT, "Titanium Ingot"));
-        Rail.itemRegistry().register("railtech:res-dustTitanium", new ItemResource(Material.INK_SACK, "Titanium Dust", (short)8));
-        dustRecipe("railtech:res-ingotTitanium", "railtech:res-dustTitanium");
-        RTRecipes.register(new MaceratorRecipe(
-                ItemUtils.matching(Material.IRON_ORE),
-                s -> Rail.itemRegistry().create("railtech:res-dustIron", 2),
-                s -> Rail.itemRegistry().create("railtech:res-dustTitanium"), 0.15F));
+        Rail.itemRegistry().register("railtech:res-nuggetTin", new ItemResource(Material.GHAST_TEAR, "Tin Nugget"));
+        registerOre("Tin");
 
         // Bronze stuff
         Rail.itemRegistry().register("railtech:res-ingotBronze", new ItemResource(Material.CLAY_BRICK, "Bronze Ingot"));
         Rail.itemRegistry().register("railtech:res-dustBronze", new ItemResource(Material.INK_SACK, "Bronze Dust", (short)3));
-        dustRecipe("railtech:res-ingotBronze", "railtech:res-dustBronze");
-        Rail.recipes().register(new RailShapelessRecipe()
-                .ingredient("railtech:res-dustTin")
-                .ingredient("railtech:res-dustCopper")
-                .ingredient("railtech:res-dustCopper")
-                .ingredient("railtech:res-dustCopper")
-                .withOutput("railtech:res-dustBronze", 2));
+        Rail.itemRegistry().register("railtech:res-nuggetBronze", new ItemResource(Material.RABBIT_FOOT, "Bronze Nugget"));
+        registerOre("Bronze");
 
-        // Vanilla stuff
+        // Iron stuff
         Rail.itemRegistry().register("railtech:res-dustIron", new ItemResource(Material.INK_SACK, "Iron Dust", (short)7));
-        dustRecipe(Material.IRON_INGOT, "railtech:res-dustIron");
+        OreDictionary.register("dustIron", "railtech:res-dustIron");
+        Rail.itemRegistry().register("railtech:res-nuggetIron", new ItemResource(Material.RABBIT_FOOT, "Iron Nugget"));
+        OreDictionary.register("nuggetIron", "railtech:res-nuggetIron");
+        registerOreRecipes("Iron");
+
+        // Gold stuff
         Rail.itemRegistry().register("railtech:res-dustGold", new ItemResource(Material.GLOWSTONE_DUST, "Gold Dust"));
-        dustRecipe(Material.GOLD_INGOT, "railtech:res-dustGold");
+        OreDictionary.register("dustGold", "railtech:res-dustGold");
+        registerOreRecipesWithoutNugget("Gold");
+
+        // Coal dust
         Rail.itemRegistry().register("railtech:res-dustCoal", new ItemResource(Material.MELON_SEEDS, "Coal Dust"));
+        OreDictionary.register("dustCoal", "railtech:res-dustCoal");
+        Rail.recipes().registerFurnaceFuel("dustCoal", 300);
     }
 
-    private static void dustRecipe(Material ingot, String dust) {
-        RTRecipes.register(new MaceratorRecipe(ItemUtils.matching(ingot), s -> Rail.itemRegistry().create(dust)));
-        Rail.recipes().register(new RailSmeltRecipe().withInput(dust).withOutput(new ItemStack(ingot)));
+    private static void registerOre(String ore) {
+        OreDictionary.register("ingot" + ore, "railtech:res-ingot" + ore);
+        OreDictionary.register("dust" + ore, "railtech:res-dust" + ore);
+        OreDictionary.register("nugget" + ore, "railtech:res-nugget" + ore);
+        registerOreRecipes(ore);
     }
 
-    private static void dustRecipe(String ingot, String dust) {
-        RTRecipes.register(new MaceratorRecipe(ItemUtils.matching(ingot), s -> Rail.itemRegistry().create(dust)));
-        Rail.recipes().register(new RailSmeltRecipe().withInput(dust).withOutput(ingot));
+    private static void registerOreRecipes(String ore) {
+        Rail.recipes().register(new RailShapelessRecipe()
+                .ingredient("ingot" + ore)
+                .withOutput("railtech:res-nugget" + ore, 9));
+        Rail.recipes().register(new RailRecipe()
+                .line("nnn").line("nnn").line("nnn")
+                .ingredient('n', "railtech:res-nugget" + ore)
+                .withResult("railtech:res-ingot" + ore));
+        registerOreRecipesWithoutNugget(ore);
+    }
+
+    private static void registerOreRecipesWithoutNugget(String ore) {
+        Rail.recipes().register(new RailSmeltRecipe()
+                .withInput("dust" + ore)
+                .withOutput("railtech:res-ingot" + ore));
     }
 
 }
