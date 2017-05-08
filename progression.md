@@ -13,6 +13,7 @@
 ## Tier 1: Mechanical ##
 * Manual spring winders
 * Manual/spring-loaded grinder
+* Manual/spring-loaded sawmill
 * Manual/spring-loaded press
 * Manual/spring-loaded friction heater
 * Manual/spring-loaded archimedes screw
@@ -31,6 +32,7 @@
 * Bronze fluid tank
 * Bronze condenser
 * Bronze vapour chamber
+* Bronze sawmill
 * Steam fan
 * Steam bandsaw
 
@@ -76,6 +78,7 @@
 * Soldering station
 * Electrolysis chamber
 * Rotary washer
+* Electric sawmill
 
 ### Progression ###
 * High-torque motor

@@ -11,6 +11,11 @@ import org.bukkit.Material;
 public class ResourceModule {
 
     public static void init() {
+        initOres();
+        initTier1Resources();
+    }
+
+    private static void initOres() {
         // Copper stuff
         Rail.itemRegistry().register("railtech:res-ingotCopper", new ItemResource(Material.CLAY_BRICK, "Copper Ingot"));
         Rail.itemRegistry().register("railtech:res-dustCopper", new ItemResource(Material.INK_SACK, "Copper Dust", (short)14));
@@ -75,6 +80,10 @@ public class ResourceModule {
         Rail.recipes().register(new RailSmeltRecipe()
                 .withInput("dust" + ore)
                 .withOutput("railtech:res-ingot" + ore));
+    }
+
+    private static void initTier1Resources() {
+        // TODO Tier 1 resources
     }
 
 }
