@@ -1,7 +1,71 @@
 package io.github.phantamanta44.mcrail.railtech.common.recipe;
 
-public class RTRecipes {
+import io.github.phantamanta44.mcrail.railtech.common.recipe.input.IMachineInput;
+import io.github.phantamanta44.mcrail.railtech.common.recipe.type.ITieredRecipeList;
 
-    // TODO Implement
+import java.util.*;
+import java.util.function.Function;
+
+public class RTRecipes implements IRecipeManager {
+
+    private static IRecipeManager INSTANCE;
+
+    public static void init() {
+        INSTANCE = new RTRecipes();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T, I extends IMachineInput<T>, O, R extends IMachineRecipe<T, I, O>> ITieredRecipeList<T, I, O, R> forType(Class<R> type) {
+        return (ITieredRecipeList<T, I, O, R>)INSTANCE.getRecipeList(type);
+    }
+
+    private final Map<Class<? extends IMachineRecipe>, ITieredRecipeList> recipeMap;
+
+    private RTRecipes() {
+        this.recipeMap = new HashMap<>();
+    }
+
+    @Override
+    public ITieredRecipeList getRecipeList(Class<? extends IMachineRecipe> type) {
+        return recipeMap.get(type);
+    }
+
+    @Override
+    public void registerType(Class<? extends IMachineRecipe> type) {
+        recipeMap.put(type, new TieredRecipeListImpl());
+    }
+
+    private static class TieredRecipeListImpl implements ITieredRecipeList {
+
+        private final List<Collection<IMachineRecipe>> tiers;
+
+        private TieredRecipeListImpl() {
+            this.tiers = new LinkedList<>();
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public Function forTier(int tier) {
+            Collection<IMachineRecipe> recipes = tiers.get(tier);
+            return i -> recipes.stream()
+                    .filter(r -> r.input().matches(i))
+                    .findAny()
+                    .map(r -> r.mapToOutput(i))
+                    .orElse(null);
+        }
+
+        @Override
+        public Collection recipes(int tier) {
+            return tiers.get(tier);
+        }
+
+        @Override
+        public void add(int tier, IMachineRecipe recipe) {
+            while (tier >= tiers.size())
+                tiers.add(new HashSet<>());
+            tiers.get(tier).add(recipe);
+        }
+
+    }
 
 }

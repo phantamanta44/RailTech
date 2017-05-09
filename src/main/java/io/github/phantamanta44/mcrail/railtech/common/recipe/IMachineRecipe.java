@@ -1,10 +1,11 @@
 package io.github.phantamanta44.mcrail.railtech.common.recipe;
 
-import io.github.phantamanta44.mcrail.railtech.common.recipe.input.MachineInput;
+import io.github.phantamanta44.mcrail.railtech.common.recipe.input.IMachineInput;
 
-@FunctionalInterface
-public interface IMachineRecipe<I extends MachineInput, O> {
+public interface IMachineRecipe<T, I extends IMachineInput<T>, O> {
 
-    O mapToOutput(I input);
+    I input();
+
+    O mapToOutput(T input);
 
 }
