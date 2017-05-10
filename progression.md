@@ -47,6 +47,7 @@
 * Pressurized boiler
 * Pressure chamber
 * Steam hammer
+* High-pressure grinder
 * High-pressure rolling machine
 * High-pressure fan
 * Gay-Lussac heater
@@ -73,6 +74,7 @@
 * Electric boiler
 * Powered smeltery
 * Electric agitator
+* Electric macerator
 * Belt sander
 * Photovoltaic cell
 * Soldering station

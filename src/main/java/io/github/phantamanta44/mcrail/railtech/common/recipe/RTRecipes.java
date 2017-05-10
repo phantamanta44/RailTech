@@ -1,10 +1,12 @@
 package io.github.phantamanta44.mcrail.railtech.common.recipe;
 
 import io.github.phantamanta44.mcrail.railtech.common.recipe.input.IMachineInput;
+import io.github.phantamanta44.mcrail.railtech.common.recipe.type.GrindingRecipe;
 import io.github.phantamanta44.mcrail.railtech.common.recipe.type.ITieredRecipeList;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class RTRecipes implements IRecipeManager {
 
@@ -12,6 +14,11 @@ public class RTRecipes implements IRecipeManager {
 
     public static void init() {
         INSTANCE = new RTRecipes();
+        registerType(GrindingRecipe.class);
+    }
+
+    public static void registerType(Class<? extends IMachineRecipe> type) {
+        INSTANCE.addType(type);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,7 +38,7 @@ public class RTRecipes implements IRecipeManager {
     }
 
     @Override
-    public void registerType(Class<? extends IMachineRecipe> type) {
+    public void addType(Class<? extends IMachineRecipe> type) {
         recipeMap.put(type, new TieredRecipeListImpl());
     }
 
@@ -46,10 +53,14 @@ public class RTRecipes implements IRecipeManager {
         @Override
         @SuppressWarnings("unchecked")
         public Function forTier(int tier) {
-            Collection<IMachineRecipe> recipes = tiers.get(tier);
+            List<IMachineRecipe> recipes = tiers.stream()
+                    .limit(tier)
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList());
+            Collections.reverse(recipes);
             return i -> recipes.stream()
                     .filter(r -> r.input().matches(i))
-                    .findAny()
+                    .findFirst()
                     .map(r -> r.mapToOutput(i))
                     .orElse(null);
         }

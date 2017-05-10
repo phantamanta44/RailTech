@@ -6,6 +6,6 @@ public interface IRecipeManager {
 
     ITieredRecipeList getRecipeList(Class<? extends IMachineRecipe> type);
 
-    void registerType(Class<? extends IMachineRecipe> type);
+    void addType(Class<? extends IMachineRecipe> type);
     
 }
