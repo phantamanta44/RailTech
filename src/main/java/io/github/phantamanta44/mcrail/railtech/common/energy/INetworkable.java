@@ -10,4 +10,6 @@ public interface INetworkable {
 
     void setNetwork(EnergyNetwork network);
 
+    int capacity();
+
 }
