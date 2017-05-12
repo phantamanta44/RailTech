@@ -11,6 +11,10 @@ import java.util.stream.Collectors;
 
 public class EnergyUtils {
 
+    private static final String[] SI_PREF = new String[] {
+            "", "k", "M", "G", "T", "P"
+    };
+
     public static int distributeAdj(BlockPos pos, int amount) {
         return distribute(SignUtils.adjacent(pos)
                 .filter(se -> se instanceof IEnergyConsumer)
@@ -63,6 +67,14 @@ public class EnergyUtils {
             }
         }
         return amount - toReq;
+    }
+
+    public static String format(long amount, String unit) {
+        int power = (int)Math.floor(Math.log10(amount) / 3D);
+        return String.format("%.2f %s%s",
+                amount / Math.pow(10, power * 3),
+                SI_PREF[Math.min(Math.max(power, 0), SI_PREF.length)],
+                unit);
     }
     
 }
