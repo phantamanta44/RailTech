@@ -70,10 +70,10 @@ public class EnergyUtils {
     }
 
     public static String format(long amount, String unit) {
-        int power = (int)Math.floor(Math.log10(amount) / 3D);
+        int power = (int)Math.round(Math.log10(amount));
         return String.format("%.2f %s%s",
-                amount / Math.pow(10, power * 3),
-                SI_PREF[Math.min(Math.max(power, 0), SI_PREF.length)],
+                amount / Math.pow(10, power),
+                SI_PREF[Math.min(Math.max(power / 3, 0), SI_PREF.length)],
                 unit);
     }
     
