@@ -2,6 +2,7 @@ package io.github.phantamanta44.mcrail.railtech.common.energy;
 
 import io.github.phantamanta44.mcrail.railflux.IEnergyContainer;
 import io.github.phantamanta44.mcrail.railtech.RTMain;
+import io.github.phantamanta44.mcrail.railtech.util.EnergyUtils;
 import io.github.phantamanta44.mcrail.sign.SignEntity;
 import io.github.phantamanta44.mcrail.util.BlockPos;
 import io.github.phantamanta44.mcrail.util.SignUtils;
@@ -62,19 +63,19 @@ public class EnergyNetwork {
     }
 
     public long offerEnergy(long amount) {
-        // TODO Implement
+        return EnergyUtils.distribute(nodes, amount);
     }
 
     public boolean canAccept(long amount) {
-        // TODO Implement
+        return energyCapacity() - energyStored() >= amount;
     }
 
     public long requestEnergy(long amount) {
-        // TODO Implement
+        return EnergyUtils.request(nodes, amount);
     }
 
     public boolean canProvide(long amount) {
-        // TODO Implement
+        return energyStored() >= amount;
     }
 
 }
