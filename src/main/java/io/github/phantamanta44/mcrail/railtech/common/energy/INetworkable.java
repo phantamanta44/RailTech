@@ -1,15 +1,9 @@
 package io.github.phantamanta44.mcrail.railtech.common.energy;
 
-import io.github.phantamanta44.mcrail.util.BlockPos;
+import io.github.phantamanta44.mcrail.railflux.IEnergized;
 
-public interface INetworkable {
+public interface INetworkable extends IEnergized {
 
-    BlockPos pos();
-
-    EnergyNetwork network();
-
-    void setNetwork(EnergyNetwork network);
-
-    int capacity();
+    boolean netCompatible(String type);
 
 }

@@ -24,7 +24,6 @@ public class RTMain extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(this);
-        netMan.saveAll();
     }
 
     public EnergyNetworkManager netMan() {
