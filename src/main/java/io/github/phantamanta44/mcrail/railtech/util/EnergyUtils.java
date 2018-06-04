@@ -3,7 +3,7 @@ package io.github.phantamanta44.mcrail.railtech.util;
 import io.github.phantamanta44.mcrail.railflux.IEnergyConsumer;
 import io.github.phantamanta44.mcrail.railflux.IEnergyProvider;
 import io.github.phantamanta44.mcrail.util.BlockPos;
-import io.github.phantamanta44.mcrail.util.SignUtils;
+import io.github.phantamanta44.mcrail.util.TileUtils;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -16,9 +16,9 @@ public class EnergyUtils {
     };
 
     public static int distributeAdj(BlockPos pos, int amount) {
-        return distribute(SignUtils.adjacent(pos)
-                .filter(se -> se instanceof IEnergyConsumer)
-                .map(se -> (IEnergyConsumer)se)
+        return distribute(TileUtils.adjacent(pos)
+                .filter(tile -> tile instanceof IEnergyConsumer)
+                .map(tile -> (IEnergyConsumer)tile)
                 .collect(Collectors.toList()), amount);
     }
     
@@ -43,9 +43,9 @@ public class EnergyUtils {
     }
 
     public static int requestAdj(BlockPos pos, int amount) {
-        return request(SignUtils.adjacent(pos)
-                .filter(se -> se instanceof IEnergyProvider)
-                .map(se -> (IEnergyProvider)se)
+        return request(TileUtils.adjacent(pos)
+                .filter(tile -> tile instanceof IEnergyProvider)
+                .map(tile -> (IEnergyProvider)tile)
                 .collect(Collectors.toList()), amount);
     }
 

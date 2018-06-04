@@ -49,7 +49,7 @@ public class SlotUpgrade extends GuiSlot {
         if (source.getAsInt() > 0) {
             if (ItemUtils.isNully(player.getItemOnCursor()))
                 player.setItemOnCursor(upgradeType.clone());
-            else if (player.getItemOnCursor().isSimilar(upgradeType))
+            else if (ItemUtils.isMatch(player.getItemOnCursor(), upgradeType))
                 player.getItemOnCursor().setAmount(player.getItemOnCursor().getAmount() + 1);
             player.updateInventory();
             downgradeCallback.run();

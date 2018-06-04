@@ -3,9 +3,9 @@ package io.github.phantamanta44.mcrail.railtech.common.energy;
 import io.github.phantamanta44.mcrail.railflux.IEnergyContainer;
 import io.github.phantamanta44.mcrail.railtech.RTMain;
 import io.github.phantamanta44.mcrail.railtech.util.EnergyUtils;
-import io.github.phantamanta44.mcrail.sign.SignEntity;
+import io.github.phantamanta44.mcrail.tile.RailTile;
 import io.github.phantamanta44.mcrail.util.BlockPos;
-import io.github.phantamanta44.mcrail.util.SignUtils;
+import io.github.phantamanta44.mcrail.util.TileUtils;
 import org.bukkit.block.BlockFace;
 
 import java.util.*;
@@ -35,8 +35,8 @@ public class EnergyNetwork {
         if (!scanned.containsKey(pos)) {
             scanned.put(pos, this);
             if (pos.exists()) {
-                SignEntity tile = SignUtils.getAt(pos);
-                if (tile != null && tile instanceof INetworkable) {
+                RailTile tile = TileUtils.getAt(pos);
+                if (tile instanceof INetworkable) {
                     INetworkable node = (INetworkable)tile;
                     if (node.netCompatible(type))
                         nodes.add((INetworkable)tile);

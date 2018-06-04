@@ -2,10 +2,10 @@ package io.github.phantamanta44.mcrail.railtech.common.tile;
 
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railflux.IEnergized;
-import io.github.phantamanta44.mcrail.sign.SignEntity;
+import io.github.phantamanta44.mcrail.tile.RailTile;
 import org.bukkit.block.Block;
 
-public abstract class TileEnergized extends SignEntity implements IEnergized {
+public abstract class TileEnergized extends RailTile implements IEnergized {
 
     protected int energy, energyMax;
 
