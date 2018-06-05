@@ -5,18 +5,20 @@ import io.github.phantamanta44.mcrail.crafting.RailRecipe;
 import io.github.phantamanta44.mcrail.crafting.RailShapelessRecipe;
 import io.github.phantamanta44.mcrail.crafting.RailSmeltRecipe;
 import io.github.phantamanta44.mcrail.oredict.OreDictionary;
-import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
-import io.github.phantamanta44.mcrail.railtech.common.recipe.output.MultiStackOutput;
-import io.github.phantamanta44.mcrail.railtech.common.recipe.type.GrindingRecipe;
+import io.github.phantamanta44.mcrail.railtech.RTMain;
+import io.github.phantamanta44.mcrail.railtech.machine.recipe.RTRecipes;
+import io.github.phantamanta44.mcrail.railtech.machine.recipe.output.MultiStackOutput;
+import io.github.phantamanta44.mcrail.railtech.machine.recipe.type.GrindingRecipe;
 import io.github.phantamanta44.mcrail.railtech.resource.item.ItemResource;
 import io.github.phantamanta44.mcrail.railtech.util.Tier;
 import io.github.phantamanta44.mcrail.util.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class ResourceModule {
+public class ResourceModule implements RTMain.Module {
 
-    public static void registerItems() {
+    @Override
+    public void registerItems() {
         // Copper stuff
         Rail.itemRegistry().register("railtech:res-ingotCopper", new ItemResource(Material.CLAY_BRICK, "Copper Ingot"));
         Rail.itemRegistry().register("railtech:res-dustCopper", new ItemResource(Material.INK_SACK, "Copper Dust", (short)14));
@@ -57,11 +59,12 @@ public class ResourceModule {
         OreDictionary.register("dustCoal", "railtech:res-dustCoal");
     }
 
-    public static void registerRecipes() {
+    @Override
+    public void registerRecipes() {
         // Non-vanilla
-        registerOreRecipes("Copper", Tier.PNEU);
-        registerOreRecipes("Steel", Tier.LV);
-        registerOreRecipes("Tin", Tier.PNEU);
+        registerOreRecipes("Copper", Tier.LV);
+        registerOreRecipes("Steel", Tier.MV);
+        registerOreRecipes("Tin", Tier.LV);
         registerOreRecipes("Bronze", Tier.LV);
         
         // Iron stuff
@@ -75,7 +78,7 @@ public class ResourceModule {
         Rail.recipes().register(new RailSmeltRecipe()
                 .withInputOreDict("dustIron")
                 .withOutput(new ItemStack(Material.IRON_INGOT, 1)));
-        RTRecipes.forType(GrindingRecipe.class).add(Tier.LV, new GrindingRecipe(
+        RTRecipes.forType(GrindingRecipe.class).add(Tier.MV, new GrindingRecipe(
                 OreDictionary.predicate("ingotIron"),
                 new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustIron"))));
         
@@ -83,36 +86,39 @@ public class ResourceModule {
         Rail.recipes().register(new RailSmeltRecipe()
                 .withInputOreDict("dustGold")
                 .withOutput(new ItemStack(Material.GOLD_INGOT, 1)));
-        RTRecipes.forType(GrindingRecipe.class).add(Tier.PNEU, new GrindingRecipe(
+        RTRecipes.forType(GrindingRecipe.class).add(Tier.LV, new GrindingRecipe(
                 OreDictionary.predicate("ingotGold"),
                 new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustGold"))));
         
         // Coal dust
-        Rail.recipes().registerFurnaceFuel("dustCoal", 300);
+        Rail.recipes().registerFurnaceFuelOreDict("dustCoal", 300);
         RTRecipes.forType(GrindingRecipe.class).add(Tier.MECH, new GrindingRecipe(
                 ItemUtils.matching(Material.COAL),
                 new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 1))));
-        RTRecipes.forType(GrindingRecipe.class).add(Tier.PNEU, new GrindingRecipe(
-                ItemUtils.matching(Material.COAL),
-                new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 2))));
         RTRecipes.forType(GrindingRecipe.class).add(Tier.LV, new GrindingRecipe(
                 ItemUtils.matching(Material.COAL),
-                new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 3))));
+                new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 2))));
         RTRecipes.forType(GrindingRecipe.class).add(Tier.MV, new GrindingRecipe(
                 ItemUtils.matching(Material.COAL),
-                new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 4))));
+                new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 3))));
         RTRecipes.forType(GrindingRecipe.class).add(Tier.HV, new GrindingRecipe(
+                ItemUtils.matching(Material.COAL),
+                new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 4))));
+        RTRecipes.forType(GrindingRecipe.class).add(Tier.NUKE, new GrindingRecipe(
+                ItemUtils.matching(Material.COAL),
+                new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 5))));
+        RTRecipes.forType(GrindingRecipe.class).add(Tier.ETH, new GrindingRecipe(
                 ItemUtils.matching(Material.COAL),
                 new MultiStackOutput(Rail.itemRegistry().create("railtech:res-dustCoal", 6))));
     }
 
-    private static void registerOreDict(String ore) {
+    private void registerOreDict(String ore) {
         OreDictionary.register("ingot" + ore, "railtech:res-ingot" + ore);
         OreDictionary.register("dust" + ore, "railtech:res-dust" + ore);
         OreDictionary.register("nugget" + ore, "railtech:res-nugget" + ore);
     }
 
-    private static void registerOreRecipes(String ore, int tier) {
+    private void registerOreRecipes(String ore, int tier) {
         Rail.recipes().register(new RailShapelessRecipe()
                 .ingOreDict("ingot" + ore)
                 .withOutput("railtech:res-nugget" + ore, 9));

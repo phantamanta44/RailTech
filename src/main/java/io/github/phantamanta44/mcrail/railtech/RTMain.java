@@ -1,18 +1,23 @@
 package io.github.phantamanta44.mcrail.railtech;
 
 import io.github.phantamanta44.mcrail.module.IRailModule;
-import io.github.phantamanta44.mcrail.railtech.common.energy.EnergyNetworkManager;
-import io.github.phantamanta44.mcrail.railtech.common.recipe.RTRecipes;
+import io.github.phantamanta44.mcrail.railtech.machine.recipe.RTRecipes;
+import io.github.phantamanta44.mcrail.railtech.machine.MachineModule;
 import io.github.phantamanta44.mcrail.railtech.resource.ResourceModule;
-import org.bukkit.Bukkit;
+import io.github.phantamanta44.mcrail.railtech.tool.ToolModule;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 public class RTMain extends JavaPlugin implements IRailModule {
 
-    public static RTMain INSTANCE;
+    private static final Collection<Module> MODULES = Arrays.asList(
+            new ResourceModule(), new MachineModule(), new ToolModule()
+    );
 
-    private EnergyNetworkManager netMan;
+    public static RTMain INSTANCE;
 
     @Override
     public void onEnable() {
@@ -26,18 +31,21 @@ public class RTMain extends JavaPlugin implements IRailModule {
 
     @Override
     public void phaseRegistration() {
-        ResourceModule.registerItems();
+        MODULES.forEach(Module::registerItems);
     }
 
     @Override
     public void phasePostRegistration() {
         RTRecipes.init();
-        ResourceModule.registerRecipes();
-        Bukkit.getServer().getPluginManager().registerEvents(netMan = new EnergyNetworkManager(), this);
+        MODULES.forEach(Module::registerRecipes);
     }
 
-    public EnergyNetworkManager netMan() {
-        return netMan;
+    public interface Module {
+
+        void registerItems();
+
+        void registerRecipes();
+
     }
 
 }

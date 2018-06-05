@@ -7,7 +7,7 @@ import org.bukkit.block.Block;
 
 public abstract class TileEnergized extends RailTile implements IEnergized {
 
-    protected int energy, energyMax;
+    private int energy, energyMax;
 
     public TileEnergized(Block block, String id, int energyMax) {
         super(block, id);
@@ -33,7 +33,7 @@ public abstract class TileEnergized extends RailTile implements IEnergized {
     }
 
     @Override
-    public boolean canAccept(int amount) {
+    public boolean canAcceptEnergy(int amount) {
         return energyMax - energy >= amount;
     }
 
@@ -45,7 +45,7 @@ public abstract class TileEnergized extends RailTile implements IEnergized {
     }
 
     @Override
-    public boolean canProvide(int amount) {
+    public boolean canProvideEnergy(int amount) {
         return energy >= amount;
     }
 

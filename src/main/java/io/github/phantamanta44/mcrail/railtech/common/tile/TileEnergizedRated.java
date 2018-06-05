@@ -5,7 +5,7 @@ import org.bukkit.block.Block;
 
 public abstract class TileEnergizedRated extends TileEnergized {
 
-    protected int energyRateIn, energyRateOut;
+    private int energyRateIn, energyRateOut;
 
     public TileEnergizedRated(Block block, String id, int energyMax, int rateIn, int rateOut) {
         super(block, id, energyMax);
@@ -14,28 +14,43 @@ public abstract class TileEnergizedRated extends TileEnergized {
     }
 
     public TileEnergizedRated(Block block, String id, int energyMax, int rateInOut) {
-        super(block, id, energyMax);
-        this.energyRateIn = this.energyRateOut = rateInOut;
+        this(block, id, energyMax, rateInOut, rateInOut);
     }
 
     @Override
     public int offerEnergy(int amount) {
-        return super.offerEnergy(Math.min(amount, energyRateIn));
+        return super.offerEnergy(Math.min(amount, getEnergyRateIn()));
+    }
+
+    public int offerEnergyRaw(int amount) {
+        return super.offerEnergy(amount);
     }
 
     @Override
-    public boolean canAccept(int amount) {
-        return energyRateIn >= amount && super.canAccept(amount);
+    public boolean canAcceptEnergy(int amount) {
+        return getEnergyRateIn() >= amount && super.canAcceptEnergy(amount);
     }
 
     @Override
     public int requestEnergy(int amount) {
-        return super.requestEnergy(Math.min(amount, energyRateOut));
+        return super.requestEnergy(Math.min(amount, getEnergyRateOut()));
+    }
+
+    public int requestEnergyRaw(int amount) {
+        return super.requestEnergy(amount);
     }
 
     @Override
-    public boolean canProvide(int amount) {
-        return energyRateOut >= amount && super.canProvide(amount);
+    public boolean canProvideEnergy(int amount) {
+        return getEnergyRateOut() >= amount && super.canProvideEnergy(amount);
+    }
+
+    public int getEnergyRateIn() {
+        return energyRateIn;
+    }
+
+    public int getEnergyRateOut() {
+        return energyRateOut;
     }
 
     @Override
