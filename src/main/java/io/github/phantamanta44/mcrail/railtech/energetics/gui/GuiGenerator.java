@@ -2,8 +2,10 @@ package io.github.phantamanta44.mcrail.railtech.energetics.gui;
 
 import io.github.phantamanta44.mcrail.gui.GuiInventory;
 import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentRedstone;
+import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentSecurity;
 import io.github.phantamanta44.mcrail.railtech.common.gui.slot.SlotEnergyMeter;
 import io.github.phantamanta44.mcrail.railtech.common.gui.slot.SlotRedstoneControl;
+import io.github.phantamanta44.mcrail.railtech.common.gui.slot.SlotSecurity;
 import io.github.phantamanta44.mcrail.railtech.energetics.gui.slot.SlotGeneratorProperties;
 import io.github.phantamanta44.mcrail.railtech.energetics.tile.TileGenerator;
 import org.bukkit.Material;
@@ -24,6 +26,7 @@ public abstract class GuiGenerator<T extends TileGenerator> extends GuiInventory
         slot(17, new SlotGeneratorProperties(tile::reset));
         slot(26, genSlot(0));
         slot(35, new SlotRedstoneControl((MachineComponentRedstone)tile.machineCore.get("redstone")));
+        slot(44, new SlotSecurity((MachineComponentSecurity)tile.machineCore.get("security")));
     }
 
 }

@@ -21,6 +21,11 @@ public class MachineComponentRedstone extends MachineComponent {
     }
 
     @Override
+    public void reset() {
+        state = State.IGNORE;
+    }
+
+    @Override
     public void deserialize(JsonObject dto) {
         state = State.valueOf(dto.get("state").getAsString());
     }

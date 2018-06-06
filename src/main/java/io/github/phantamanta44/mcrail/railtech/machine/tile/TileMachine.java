@@ -3,6 +3,7 @@ package io.github.phantamanta44.mcrail.railtech.machine.tile;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railtech.common.component.MachineCore;
 import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentRedstone;
+import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentSecurity;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergizedRated;
 import org.bukkit.block.Block;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -17,7 +18,8 @@ public abstract class TileMachine extends TileEnergizedRated {
     public TileMachine(Block block, String id, int energyMax, int energyRate) {
         super(block, id, energyMax, energyRate, 0);
         this.machineCore = new MachineCore(this)
-                .install(new MachineComponentRedstone(this));
+                .install(new MachineComponentRedstone(this))
+                .install(new MachineComponentSecurity(this));
     }
 
     @Override

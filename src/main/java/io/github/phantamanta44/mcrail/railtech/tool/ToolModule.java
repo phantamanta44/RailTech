@@ -3,6 +3,7 @@ package io.github.phantamanta44.mcrail.railtech.tool;
 import io.github.phantamanta44.mcrail.Rail;
 import io.github.phantamanta44.mcrail.railtech.RTMain.Module;
 import io.github.phantamanta44.mcrail.railtech.tool.item.ItemBattery;
+import io.github.phantamanta44.mcrail.railtech.tool.item.ItemBiometricCard;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
@@ -10,6 +11,9 @@ public class ToolModule implements Module {
 
     @Override
     public void registerItems() {
+        // Biometric card
+        Rail.itemRegistry().register("railtech:tol-biocard", new ItemBiometricCard());
+
         // Batteries
         Rail.itemRegistry().register("railtech:tol-battery-l",
                 new ItemBattery(ChatColor.RESET + "Light Battery",

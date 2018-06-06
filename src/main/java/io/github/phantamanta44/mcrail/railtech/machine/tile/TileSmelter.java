@@ -31,7 +31,7 @@ public class TileSmelter extends TileRecipeMachine<ItemStack, ItemStackInput, It
     @Override
     protected void doWork() {
         if (Rail.currentTick() % 5 == 0)
-            block().getWorld().playSound(location(), Sound.HORSE_BREATHE, 0.1F, 0.5F);
+            block().getWorld().playSound(location(), Sound.HORSE_BREATHE, 0.2F, 0.5F);
     }
 
     @Override

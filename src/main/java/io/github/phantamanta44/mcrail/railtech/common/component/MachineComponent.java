@@ -2,6 +2,7 @@ package io.github.phantamanta44.mcrail.railtech.common.component;
 
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.tile.RailTile;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class MachineComponent implements IMachineModifier {
 
@@ -16,6 +17,14 @@ public abstract class MachineComponent implements IMachineModifier {
 
     public String getId() {
         return id;
+    }
+
+    public boolean acceptUpgrade(ItemStack stack) {
+        return false;
+    }
+
+    public void reset() {
+        // NO-OP
     }
 
     public abstract void deserialize(JsonObject dto);

@@ -94,7 +94,12 @@ public abstract class TileRecipeMachine<T, I extends IMachineInput<T>, O extends
             if (provider != null)
                 offerEnergyRaw(provider.requestEnergy(Math.min(getEnergyRateIn(), energyCapacity() - energyStored())));
         }
-        // TODO augmentation logic
+        if (ItemUtils.isNotNully(inv[1]) && machineCore.offerUpgrade(inv[1])) {
+            if (inv[1].getAmount() == 1)
+                inv[1] = null;
+            else
+                inv[1].setAmount(inv[1].getAmount() - 1);
+        }
     }
 
     protected abstract T getInput();

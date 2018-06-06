@@ -28,6 +28,18 @@ public class MachineCore implements IMachineModifier {
         return components.get(id);
     }
 
+    public boolean offerUpgrade(ItemStack stack) {
+        for (MachineComponent component : components.values()) {
+            if (component.acceptUpgrade(stack))
+                return true;
+        }
+        return false;
+    }
+
+    public void reset() {
+        components.values().forEach(MachineComponent::reset);
+    }
+
     @Override
     public int modifyEnergyRateIn(int rate) {
         for (MachineComponent component : components.values())

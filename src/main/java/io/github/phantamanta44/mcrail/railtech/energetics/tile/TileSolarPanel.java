@@ -32,7 +32,7 @@ public class TileSolarPanel extends TileGenerator {
 
     @Override
     protected boolean canWork() {
-        return getEnvironment().favourable;
+        return super.canWork() && getEnvironment().favourable;
     }
 
     public EnvironmentState getEnvironment() {

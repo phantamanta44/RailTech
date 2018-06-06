@@ -12,7 +12,7 @@ public class EnergeticsModule implements RTMain.Module {
     @Override
     public void registerItems() {
         Rail.tileRegistry().register(
-                new ItemEnergeticMachine("gen-solar", ChatColor.RESET + "Solar Panel", Material.DAYLIGHT_DETECTOR),
+                new ItemEnergeticMachine("gen-solar", ChatColor.RESET + "Solar Panel", Material.ENDER_PORTAL_FRAME),
                 TileSolarPanel::new);
     }
 

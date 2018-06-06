@@ -4,6 +4,7 @@ import io.github.phantamanta44.mcrail.gui.slot.GuiSlot;
 import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentRedstone;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -54,8 +55,10 @@ public class SlotRedstoneControl extends GuiSlot {
 
     @Override
     public boolean onInteract(Player player, InventoryClickEvent event) {
-        if (event.getClick() == ClickType.LEFT)
+        if (event.getClick() == ClickType.LEFT) {
             component.cycleState();
+            player.playSound(player.getLocation(), Sound.CLICK, 1F, 1F);
+        }
         return false;
     }
 

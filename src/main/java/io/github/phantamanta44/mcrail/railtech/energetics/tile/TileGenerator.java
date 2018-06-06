@@ -4,8 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railtech.common.component.MachineCore;
 import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentRedstone;
+import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentSecurity;
 import io.github.phantamanta44.mcrail.railtech.common.tile.TileEnergizedRated;
 import io.github.phantamanta44.mcrail.railtech.util.EnergyUtils;
+import io.github.phantamanta44.mcrail.util.ItemUtils;
 import io.github.phantamanta44.mcrail.util.JsonUtils;
 import org.bukkit.block.Block;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -25,7 +27,8 @@ public class TileGenerator extends TileEnergizedRated {
         super(block, id, energyMax, 0, energyRate);
         this.inv = new ItemStack[invSize + 1];
         this.machineCore = new MachineCore(this)
-                .install(new MachineComponentRedstone(this));
+                .install(new MachineComponentRedstone(this))
+                .install(new MachineComponentSecurity(this));
     }
 
     @Override
@@ -62,13 +65,19 @@ public class TileGenerator extends TileEnergizedRated {
     }
 
     public void reset() {
-        // TODO reset generator properties
+        machineCore.reset();
     }
 
     @Override
     public void tick() {
         machineCore.tick();
         requestEnergyRaw(EnergyUtils.distributeAdj(pos(), Math.min(energyStored(), getEnergyRateOut())));
+        if (ItemUtils.isNotNully(inv[0]) && machineCore.offerUpgrade(inv[0])) {
+            if (inv[0].getAmount() == 1)
+                inv[0] = null;
+            else
+                inv[0].setAmount(inv[0].getAmount() - 1);
+        }
     }
 
     @Override
