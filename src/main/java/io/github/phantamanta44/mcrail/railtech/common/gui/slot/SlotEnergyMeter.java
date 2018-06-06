@@ -21,7 +21,7 @@ public class SlotEnergyMeter extends GuiSlot {
     public SlotEnergyMeter(IEnergyContainer source, Material material) {
         this.source = source;
         this.stack = new ItemStack(material);
-        this.avgDiff = new RunningAverage(5);
+        this.avgDiff = new RunningAverage(20);
         this.lastEnergy = source.energyStored();
     }
 

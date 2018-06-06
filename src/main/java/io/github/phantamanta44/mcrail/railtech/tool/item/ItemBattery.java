@@ -6,6 +6,7 @@ import io.github.phantamanta44.mcrail.railtech.common.item.ItemEnergizedRated;
 import io.github.phantamanta44.mcrail.railtech.util.NumberUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,7 +28,8 @@ public class ItemBattery extends ItemEnergizedRated {
 
     @Override
     public boolean onUse(PlayerInteractEvent event, ItemStack stack) {
-        return false;
+        return event.getAction() != Action.RIGHT_CLICK_BLOCK
+                && event.getAction() != Action.RIGHT_CLICK_AIR;
     }
 
 }

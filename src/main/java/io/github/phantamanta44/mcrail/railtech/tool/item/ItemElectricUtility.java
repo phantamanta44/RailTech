@@ -3,8 +3,6 @@ package io.github.phantamanta44.mcrail.railtech.tool.item;
 import io.github.phantamanta44.mcrail.item.characteristic.CharName;
 import io.github.phantamanta44.mcrail.railtech.common.item.ItemEnergizedRated;
 import org.bukkit.Material;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -31,15 +29,6 @@ public class ItemElectricUtility extends ItemEnergizedRated {
         if (requestEnergy(event.getDamage() * energyCost, stack) > 0) {
             event.getPlayer().updateInventory();
             return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onUse(PlayerInteractEvent event, ItemStack stack) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR) { // TODO remove test code
-            Wrapper battery = wrap(stack);
-            battery.offerEnergyRaw(battery.energyCapacity() - battery.energyStored());
         }
         return true;
     }

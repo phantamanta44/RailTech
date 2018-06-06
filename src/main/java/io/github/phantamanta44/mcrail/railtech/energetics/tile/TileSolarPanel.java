@@ -39,7 +39,7 @@ public class TileSolarPanel extends TileGenerator {
         World world = block().getWorld();
         if (world.getEnvironment() != World.Environment.NORMAL)
             return EnvironmentState.HOSTILE;
-        if (world.getHighestBlockYAt(location()) > pos().y())
+        if (world.getHighestBlockYAt(location()) - 1 > pos().y())
             return EnvironmentState.OBSTRUCTED;
         if (world.isThundering())
             return EnvironmentState.STORM;

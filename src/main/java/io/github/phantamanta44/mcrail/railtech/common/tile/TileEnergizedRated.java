@@ -1,6 +1,5 @@
 package io.github.phantamanta44.mcrail.railtech.common.tile;
 
-import com.google.gson.JsonObject;
 import org.bukkit.block.Block;
 
 public abstract class TileEnergizedRated extends TileEnergized {
@@ -51,21 +50,6 @@ public abstract class TileEnergizedRated extends TileEnergized {
 
     public int getEnergyRateOut() {
         return energyRateOut;
-    }
-
-    @Override
-    public void deserialize(JsonObject dto) {
-        super.deserialize(dto);
-        this.energyRateIn = dto.get("energyRateIn").getAsInt();
-        this.energyRateOut = dto.get("energyRateOut").getAsInt();
-    }
-
-    @Override
-    public JsonObject serialize() {
-        JsonObject dto = super.serialize();
-        dto.addProperty("energyRateIn", energyRateIn);
-        dto.addProperty("energyRateOut", energyRateOut);
-        return dto;
     }
 
 }

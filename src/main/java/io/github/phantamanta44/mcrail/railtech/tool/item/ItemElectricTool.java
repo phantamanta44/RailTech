@@ -6,9 +6,7 @@ import io.github.phantamanta44.mcrail.railtech.common.item.ItemEnergizedRated;
 import io.github.phantamanta44.mcrail.railtech.util.Hardness;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -54,15 +52,6 @@ public class ItemElectricTool extends ItemEnergizedRated {
         if (event.getPlayer().getGameMode() != GameMode.CREATIVE
                 && requestEnergy((int)Math.ceil(Hardness.of(event.getBlock().getType()) * energyCost), stack) > 0) {
             damageCancels.put(event.getPlayer().getUniqueId(), Rail.currentTick());
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onUse(PlayerInteractEvent event, ItemStack stack) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR) { // TODO remove test code
-            Wrapper battery = wrap(stack);
-            battery.offerEnergyRaw(battery.energyCapacity() - battery.energyStored());
         }
         return true;
     }

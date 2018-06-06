@@ -52,14 +52,12 @@ public abstract class TileEnergized extends RailTile implements IEnergized {
     @Override
     public void deserialize(JsonObject dto) {
         this.energy = dto.get("energy").getAsInt();
-        this.energyMax = dto.get("energyMax").getAsInt();
     }
 
     @Override
     public JsonObject serialize() {
         JsonObject dto = new JsonObject();
         dto.addProperty("energy", energy);
-        dto.addProperty("energyMax", energyMax);
         return dto;
     }
 
