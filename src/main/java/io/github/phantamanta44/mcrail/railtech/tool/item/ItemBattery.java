@@ -28,8 +28,10 @@ public class ItemBattery extends ItemEnergizedRated {
 
     @Override
     public boolean onUse(PlayerInteractEvent event, ItemStack stack) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR)
-            wrap(stack).offerEnergyRaw(320000);
+        if (event.getAction() == Action.RIGHT_CLICK_AIR) { // TODO remove test code
+            Wrapper battery = wrap(stack);
+            battery.offerEnergyRaw(battery.energyCapacity() - battery.energyStored());
+        }
         return false;
     }
 

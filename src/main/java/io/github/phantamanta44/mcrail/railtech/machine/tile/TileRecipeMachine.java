@@ -3,7 +3,6 @@ package io.github.phantamanta44.mcrail.railtech.machine.tile;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.github.phantamanta44.mcrail.railflux.IEnergyProvider;
-import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentRedstone;
 import io.github.phantamanta44.mcrail.railtech.machine.recipe.IMachineRecipe;
 import io.github.phantamanta44.mcrail.railtech.machine.recipe.RTRecipes;
 import io.github.phantamanta44.mcrail.railtech.machine.recipe.input.IMachineInput;
@@ -17,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.function.Function;
 
 public abstract class TileRecipeMachine<T, I extends IMachineInput<T>, O extends IMachineOutput, R extends IMachineRecipe<T, I, O>>
         extends TileMachine {
@@ -27,18 +25,16 @@ public abstract class TileRecipeMachine<T, I extends IMachineInput<T>, O extends
     private final Class<R> recipeType;
     private final int workNeeded;
     private final int energyPerProcess;
-    private final Function<T, R> recipeGetter;
     private int work;
 
-    public TileRecipeMachine(Block block, String id, int tier, int invSize, Class<R> recipeType, int ticksNeeded, int energyPerProcess) {
-        super(block, id, tier);
+    public TileRecipeMachine(Block block, String id, int invSize, Class<R> recipeType,
+                             int ticksNeeded, int energyPerProcess, int energyMax, int energyRate) {
+        super(block, id, energyMax, energyRate);
         this.recipeType = recipeType;
         this.workNeeded = ticksNeeded * 100;
         this.energyPerProcess = energyPerProcess;
         this.inv = new ItemStack[invSize + 2];
-        this.recipeGetter = RTRecipes.forType(recipeType).forTier(tier);
         this.work = 0;
-        machineCore.install(new MachineComponentRedstone(this));
         // TODO install components
     }
 
@@ -74,7 +70,7 @@ public abstract class TileRecipeMachine<T, I extends IMachineInput<T>, O extends
     public void tick() {
         super.tick();
         if (canWork()) {
-            R recipe = recipeGetter.apply(getInput());
+            R recipe = RTRecipes.forType(recipeType).findRecipe(getInput());
             if (recipe != null) {
                 O output = recipe.mapToOutput(getInput());
                 if (canAcceptOutput(output)) {

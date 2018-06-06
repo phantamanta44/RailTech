@@ -1,15 +1,15 @@
 package io.github.phantamanta44.mcrail.railtech.machine.gui;
 
 import io.github.phantamanta44.mcrail.railtech.machine.gui.slot.SlotProcessingProgress;
-import io.github.phantamanta44.mcrail.railtech.machine.tile.TileGrinderLV;
+import io.github.phantamanta44.mcrail.railtech.machine.tile.TileSmelter;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class GuiGrinderLV extends GuiRecipeMachine<TileGrinderLV> {
+public class GuiSmelter extends GuiRecipeMachine<TileSmelter> {
 
-    public GuiGrinderLV(Player player, TileGrinderLV tile) {
-        super(ChatColor.RESET + "Electric Grinder", player, tile);
+    public GuiSmelter(Player player, TileSmelter tile) {
+        super(ChatColor.RESET + "Resistive Smelter", player, tile);
     }
 
     @Override
@@ -17,9 +17,8 @@ public class GuiGrinderLV extends GuiRecipeMachine<TileGrinderLV> {
         super.init();
         slot(19, genSlot(2));
         slot(21, new SlotProcessingProgress(
-                tile::getProcessingProgress, Material.IRON_PICKAXE, "Grinding..."));
+                tile::getProcessingProgress, Material.FLINT_AND_STEEL, "Smelting..."));
         slot(23, genSlot(3));
-        slot(32, genSlot(4));
     }
 
 }

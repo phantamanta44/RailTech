@@ -3,11 +3,12 @@ package io.github.phantamanta44.mcrail.railtech.machine.recipe;
 import io.github.phantamanta44.mcrail.railtech.machine.recipe.input.IMachineInput;
 import io.github.phantamanta44.mcrail.railtech.machine.recipe.output.IMachineOutput;
 import io.github.phantamanta44.mcrail.railtech.machine.recipe.type.GrindingRecipe;
-import io.github.phantamanta44.mcrail.railtech.machine.recipe.type.ITieredRecipeList;
+import io.github.phantamanta44.mcrail.railtech.machine.recipe.type.SmeltingRecipe;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public class RTRecipes implements IRecipeManager {
 
@@ -16,6 +17,7 @@ public class RTRecipes implements IRecipeManager {
     public static void init() {
         INSTANCE = new RTRecipes();
         registerType(GrindingRecipe.class);
+        registerType(SmeltingRecipe.class);
     }
 
     public static void registerType(Class<? extends IMachineRecipe> type) {
@@ -23,58 +25,51 @@ public class RTRecipes implements IRecipeManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T, I extends IMachineInput<T>, O extends IMachineOutput, R extends IMachineRecipe<T, I, O>> ITieredRecipeList<T, I, O, R> forType(Class<R> type) {
-        return (ITieredRecipeList<T, I, O, R>)INSTANCE.getRecipeList(type);
+    public static <T, I extends IMachineInput<T>, O extends IMachineOutput, R extends IMachineRecipe<T, I, O>> IRecipeList<T, I, O, R> forType(Class<R> type) {
+        return (IRecipeList<T, I, O, R>)INSTANCE.getRecipeList(type);
     }
 
-    private final Map<Class<? extends IMachineRecipe>, ITieredRecipeList> recipeMap;
+    private final Map<Class<? extends IMachineRecipe>, IRecipeList> recipeMap;
 
     private RTRecipes() {
         this.recipeMap = new HashMap<>();
     }
 
     @Override
-    public ITieredRecipeList getRecipeList(Class<? extends IMachineRecipe> type) {
+    public IRecipeList getRecipeList(Class<? extends IMachineRecipe> type) {
         return recipeMap.get(type);
     }
 
     @Override
     public void addType(Class<? extends IMachineRecipe> type) {
-        recipeMap.put(type, new TieredRecipeListImpl());
+        recipeMap.put(type, new RecipeListImpl());
     }
 
-    private static class TieredRecipeListImpl implements ITieredRecipeList {
+    private static class RecipeListImpl implements IRecipeList {
 
-        private final List<Collection<IMachineRecipe>> tiers;
+        private final Collection<IMachineRecipe> recipes;
 
-        private TieredRecipeListImpl() {
-            this.tiers = new LinkedList<>();
+        private RecipeListImpl() {
+            this.recipes = new HashSet<>();
         }
 
         @Override
         @SuppressWarnings("unchecked")
-        public Function forTier(int tier) {
-            List<IMachineRecipe> recipes = tiers.stream()
-                    .limit(tier + 1)
-                    .flatMap(Collection::stream)
-                    .collect(Collectors.toList());
-            Collections.reverse(recipes);
-            return i -> recipes.stream()
-                    .filter(r -> r.input().matches(i))
+        public IMachineRecipe findRecipe(Object input) {
+            return recipes.stream()
+                    .filter(r -> r.input().matches(input))
                     .findFirst()
                     .orElse(null);
         }
 
         @Override
-        public Collection recipes(int tier) {
-            return tiers.get(tier);
+        public Collection recipes() {
+            return recipes;
         }
 
         @Override
-        public void add(int tier, IMachineRecipe recipe) {
-            while (tier >= tiers.size())
-                tiers.add(new HashSet<>());
-            tiers.get(tier).add(recipe);
+        public void add(IMachineRecipe recipe) {
+            recipes.add(recipe);
         }
 
     }

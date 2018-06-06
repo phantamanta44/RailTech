@@ -10,8 +10,19 @@ public class ToolModule implements Module {
 
     @Override
     public void registerItems() {
-        Rail.itemRegistry().register("railtech:tol-battery-lv",
-                new ItemBattery(ChatColor.RESET + "Light Battery", Material.CAULDRON_ITEM, 320000, 512));
+        // Batteries
+        Rail.itemRegistry().register("railtech:tol-battery-l",
+                new ItemBattery(ChatColor.RESET + "Light Battery",
+                        Material.CAULDRON_ITEM, 320000, 768));
+        Rail.itemRegistry().register("railtech:tol-battery-m",
+                new ItemBattery(ChatColor.RESET + "Medium Battery",
+                        Material.BREWING_STAND_ITEM, 1000000, 2000));
+        Rail.itemRegistry().register("railtech:tol-battery-h",
+                new ItemBattery(ChatColor.AQUA + "Heavy Battery",
+                        Material.POWERED_MINECART, 9000000, 16000));
+        Rail.itemRegistry().register("railtech:tol-battery-e",
+                new ItemBattery(ChatColor.LIGHT_PURPLE + "Omega-Klein Battery",
+                        Material.NETHER_STAR, 51200000, 50000));
     }
 
     @Override

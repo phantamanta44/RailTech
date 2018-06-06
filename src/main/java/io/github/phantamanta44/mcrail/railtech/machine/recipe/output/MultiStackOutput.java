@@ -1,5 +1,6 @@
 package io.github.phantamanta44.mcrail.railtech.machine.recipe.output;
 
+import io.github.phantamanta44.mcrail.util.ItemUtils;
 import org.bukkit.inventory.ItemStack;
 
 public class MultiStackOutput implements IMachineOutput {
@@ -31,6 +32,14 @@ public class MultiStackOutput implements IMachineOutput {
 
     public float getChance() {
         return chance;
+    }
+    
+    public boolean isAcceptable(ItemStack primStack, ItemStack secStack) {
+        return (ItemUtils.isNully(primStack) || (ItemUtils.isMatch(primStack, getPrimaryOutput())
+                        && primStack.getAmount() + getPrimaryOutput().getAmount() <= primStack.getMaxStackSize()))
+                && (ItemUtils.isNully(secStack) || ItemUtils.isNully(getSecondaryOutput())
+                        || (ItemUtils.isMatch(secStack, getSecondaryOutput())
+                        && secStack.getAmount() + getSecondaryOutput().getAmount() <= secStack.getMaxStackSize()));
     }
 
 }

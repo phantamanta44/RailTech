@@ -1,5 +1,7 @@
 package io.github.phantamanta44.mcrail.railtech.util;
 
+import org.bukkit.ChatColor;
+
 public class NumberUtils {
 
     private static final String[] prefixes = new String[] {"", "k", "M", "G", "T", "P", "E"};
@@ -20,6 +22,10 @@ public class NumberUtils {
         if (magnitude == 0)
             return num + " " + unit;
         return String.format("%.2f %s%s", num / Math.pow(10, magnitude * 3), prefixes[magnitude], unit);
+    }
+
+    public static ChatColor colourForSign(int signum) {
+        return signum > 0 ? ChatColor.GREEN : signum < 0 ? ChatColor.RED : ChatColor.GRAY;
     }
 
 }

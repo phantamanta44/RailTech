@@ -1,4 +1,4 @@
-package io.github.phantamanta44.mcrail.railtech.machine.gui;
+package io.github.phantamanta44.mcrail.railtech.common.gui.slot;
 
 import io.github.phantamanta44.mcrail.gui.slot.GuiSlot;
 import io.github.phantamanta44.mcrail.railtech.common.component.impl.MachineComponentRedstone;
